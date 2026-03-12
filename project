@@ -1,0 +1,409 @@
+Individual Project - Airline Mobile Boarding Pass Sujitha Suresh Rao
+srao434@gatech.edu
+1 INTRODUCTION
+Air travel is a task that millions of people perform regularly, yet the digital tools designed to support it often create unnecessary friction at the most critical mo- ments. The boarding pass which was once a simple paper ticket has migrated to mobile apps, but its design has not kept pace with the opportunity mobile inter- faces provide. Instead of adapting to the traveler’s context, most airline mobile boarding passes present a dense, undifferentiated wall of information: confir- mation number, frequent flyer number, seat assignment, gate number, boarding time, departure time, flight number, TSA PreCheck status, baggage claim details, and more.
+This project focuses on the task of navigating an airport using a mobile boarding pass, from the moment a traveler arrives at security through gate boarding and finally reaching their seat. What users are trying to accomplish is not a single task but a sequence of micro-tasks, each requiring a different and specific subset of information. At the security checkpoint, a traveler needs their name and barcode. At the gate, they need their gate number, boarding time, and boarding group. At their seat, they need their seat number. The mismatch between what the interface displays and what the user needs at any given moment imposes unnecessary cognitive load and creates a frustrating, error-prone experience.
+The motivation for this project emerged from personal observation and a widely shared pain point among frequent and occasional flyers alike. Standing in a security line, phone brightness turned up, scanning through a cluttered screen searching for the barcode while a TSA agent waits, is a stressful and common experience. A passenger in the wrong boarding group who cannot quickly locate their group number holds up an entire boarding queue.
+The goal of this project is to explore, prototype, and evaluate a redesigned air- line mobile boarding pass that surfaces the right information at the right time, reducing cognitive load and supporting travelers through each distinct stage of their airport journey.
+1
+
+2 NEEDFINDING PLAN
+2.1 Overview
+To inform the redesign of the airline mobile boarding pass, I will conduct two needfinding activities. Together, these activities will reveal how real users cur- rently experience the interface and identify specific design violations that can guide early ideation.
+2.2 Activity 1: User Survey
+Goal: To understand how travelers interact with their mobile boarding pass at different stages of the airport journey, what information they find most critical at each stage, and where they experience confusion or friction.
+Participants: The target is approximately 30 participants. Participants will be recruited from two sources: (1) Georgia Tech OMSCS classmates via the Ed discussion post, and (2) personal and professional contacts who travel by air at least once per year. No specific demographic restrictions will be applied.
+Recruitment: The survey will be distributed via a peersurvey shared through course communication channels and personal messaging. An introductory note will explain the research purpose and confirm that participation is anonymous.
+Survey Structure: The survey will take approximately 5 minutes to complete and will include the following sections:
+• Background: Travel frequency, airline app usage and familiarity.
+• Stage-by-stage experience: For each of three stages (security, gate, boarding), par- ticipants will be asked what information they look for, how easy it is to find,
+and whether they have experienced any confusion or delay.
+• Info overload: Likert-scale questions about cognitive load and visual clutter.
+• Open-ended feedback: What they wish the boarding pass showed differently, and
+any specific frustrations or positive experiences they recall.
+The full question text is included in Appendix A.
+2.3 Activity 2: Heuristic Evaluation
+Goal: To systematically identify usability violations in an existing airline mobile boarding pass interface using established heuristics.
+2
+
+Target Interface: The evaluation will focus on the Delta Air Lines mobile app boarding pass screen, accessed via a personal account with an upcoming or recently completed flight. Delta is one of the most widely used airline apps in the United States and is representative of the current industry standard for mobile boarding pass design.
+Figure 1—Delta Mobile Boarding Pass
+Heuristics: Three heuristics will be applied, drawn from Nielsen’s Ten Usability
+Heuristics:
+1. Match Between System and the Real World (Nielsen Heuristic #2) The system should use language and concepts familiar to the user, and information should appear in a natural and logical order. Evaluation question: Does the boarding pass present information in the order and priority that reflects how a traveler actually moves through the airport?
+2. Recognition Rather Than Recall (Nielsen Heuristic #6) Users should not have to remember information from one part of the interface to another. Minimizing the user’s memory load means making relevant objects, actions, and options
+ 3
+
+visible. Evaluation question: At each stage of travel, is the most contextually
+relevant information immediately visible without scanning or scrolling?
+3. Aesthetic and Minimalist Design (Nielsen Heuristic #8) Every extra unit of information in a dialogue competes with relevant information and diminishes its relative visibility. Evaluation question: Does the boarding pass display only what is necessary, or does it present extraneous information that increases
+cognitive load?
+Evaluation Process I will evaluate the interface independently by walking through the three airport stages (security, gate, seat) while referencing the boarding pass screen, noting where each heuristic is obeyed or violated, and assigning a severity rating (0–4) to each identified issue following Nielsen’s severity scale. Findings will be documented in a structured table in Appendix B.
+3 NEEDFINDING RESULTS
+User Survey: The survey was distributed via the Georgia Tech OMSCS Ed Dis- cussion board and personal contacts, hosted on the PeerSurvey platform. A total of 38 responses were collected. The sample skewed toward experienced mobile boarding pass users: 66% had used mobile passes for three or more years, and the participant pool included users of Delta, United, American, Southwest, mo- bile wallet, and a range of international apps (KLM, Emirates, JetBlue, DigiYatra, and others). Ages skewed toward 18–29 (55%).
+Key results by stage: At security, 66% of respondents looked first for the bar- code/QR code; 58% found it "somewhat easy" to locate, while 32% reported difficulty or were neutral. At the gate, gate number (76%) and boarding time (74%) were the top-cited information needs, but only 5% found gate-stage infor- mation immediately visible — 29% reported difficulty or were neutral, making the gate the highest-friction stage. After boarding, 87% needed only their seat number. Across all stages, 55% of respondents reported either a near-miss or stress while searching for information. Design preference was decisive: 87% se- lected a stage-aware simplified view as their top desired improvement, and 89% rated context-aware highlighting as useful or extremely useful.
+Heuristic Evaluation: The evaluation was conducted as planned using the Delta Android app boarding pass, walking through the security, gate, and boarding stages and evaluating against three Nielsen heuristics. The full findings table is
+4
+
+in Appendix B.
+Match Between System and the Real World (H2): Partially obeyed. The barcode is positioned at the top (appropriate for security) but below it, the layout does not reflect the sequential journey. Gate number, boarding time, seat, zone, and confirmation details are displayed with similar visual weight regardless of travel stage, with no correspondence to the traveler’s real-world progression. Severity 3 (major) for the absence of any stage-aware hierarchy across the full card.
+Recognition Rather Than Recall (H6): Violated at the gate and boarding stages. The boarding group/zone label is small and non-dominant; a traveler who hears their zone called must search the card to confirm it. After boarding, seat number is not surfaced as the primary element. QR code, status badges, and flight details continue to compete for visual attention. Severity 3 at the gate, Severity 2 at boarding.
+Aesthetic and Minimalist Design (H8): Consistently violated. The boarding pass displays more than fifteen simultaneous elements including confirmation number, medallion status, three status badges (SkyPriority, TSA Pre, DIGITAL ID), Apple Wallet button, on-time indicator, and a "Where’s My Plane?" link. The majority of which are irrelevant to the user’s current task at every stage evaluated. Severity 3–4.
+Severity: 0 = none; 1 = cosmetic; 2 = minor; 3 = major; 4 = catastrophic.
+3.1 Key Insights
+Insight 1 — Information needs per stage are far narrower than the interface assumes. The survey confirmed what was only suspected: at security, one item dominates (barcode, 66%); at boarding, one item is needed (seat number, 87%). Yet the heuristic evaluation found more than fifteen elements competing for attention at every stage. The interface is designed for completeness when users need precision.
+Insight 2 — The gate stage is the highest-friction point, not security. Prior to needfinding, security seemed like the most stressful stage. The data reversed this assumption: 11% found security information immediately visible vs. only 5% at the gate; 29% experienced gate-stage friction vs. 32% at security and the gate involves active listening for a boarding zone call, compounding the cost of any search delay. The heuristic evaluation rated gate violations at Severity 3 on two
+5
+
+ # Stage Heuristic Issue Sev.
+   1
+ Security
+ H8 — Minimalist
+Barcode competes with 15+ simultaneous elements
+  2
+  2
+ Gate
+ H6 — Recognition
+Boarding zone not visually dominant; requires active search when group is called
+  3
+  3
+ Gate
+ H2 — Real World
+Gate number and boarding time not elevated over irrelevant fields
+  3
+  4
+ Gate
+ H8 — Minimalist
+No information suppressed relative to gate-stage task context
+  3
+  5
+ Boarding
+ H6 — Recognition
+Seat number not surfaced as primary element after boarding
+  2
+  6
+ All
+ H2 — Real World
+No progressive disclosure; card layout unchanged across all travel stages
+  4
+       of three heuristics.
+Insight 3 — Users want dynamic prioritization, not less information. 47% de- scribed the overall information quantity as "about right," yet 55% reported stress or near-misses and 87% requested a stage-aware view. The resolution came from the Q11 write-in response selected by 32% of respondents: "apt info included, but highlighted info differs with each app." Users are not overwhelmed by the con- tent. They are frustrated that emphasis does not shift with context. The design target is dynamic prioritization, not content reduction.
+4 INITIAL BRAINSTORMING PLAN
+The brainstorming phase builds on three confirmed insights from needfinding: information needs are narrowly stage-specific, the gate is the highest-friction stage, and users want dynamic prioritization rather than reduced content. The session is conducted individually with Claude as an AI ideation partner, follow- ing course principles of deferred judgment, quantity before quality, and breadth before convergence.
+The session uses four structured turns: (1) generate at least 8 concepts spanning conservative visual redesign to novel interaction paradigms, with a boarding time countdown element required somewhere in the space; (2) deepen the three
+6
+
+highest-potential concepts with specific UI details; (3) a devil’s advocate round to surface assumptions and overlooked users; (4) synthesize into three distinct prototypable alternatives. The full transcript is Appendix C.
+Bias Mitigation
+• Fixation bias — countered by requiring gestural and voice concepts in Turn 1
+before any refinement, forcing exploration beyond the current card layout.
+• Frequency bias — countered by making international travelers, first-time flyers,
+and accessibility needs the explicit focus of Turn 3.
+• Solutionism bias — countered by structuring selection only after the devil’s
+advocate turn has introduced friction into the most appealing ideas.
+5 BRAINSTORMING RESULTS
+5.1 5.1 Overview of Activity
+The session ran across four turns with Claude as AI partner. Turn 1 produced 8 concepts ranging from double-tap zoom gestures to ambient lock screen wid- gets, with the boarding countdown integrated as a depleting arc or countdown bar rather than a numeric ticker. Turn 2 deepened Stage Spotlight, Swipe-Stage Cards, and Ambient Color + Timer Ring with concrete interaction details. Turn 3 surfaced six counterarguments, two of which introduced considerations absent from the initial generation: the need for gate-change alerting within stage-aware interfaces, and the risk that a visible countdown increases anxiety for stressed travelers. Turn 4 synthesized three alternatives with distinct paradigms. The full transcript is in Appendix B.
+5.2 Ideas Generated
+Automated / Time-Aware
+• Stage Spotlight — Focus panel auto-promotes 1–2 critical fields by stage. Gate view: boarding time with depleting arc, zone in 72pt bold. All other details in a collapsible drawer.
+• Ambient Color + Timer Ring — Background shifts by stage (navy → amber → green). At the gate, a large circular arc surrounds boarding time and depletes as boarding approaches. Zone is the second-largest element.
+7
+
+• Lock Screen Live Card — Persistent lock screen widget showing one field at a time: barcode thumbnail → gate + countdown bar → seat number. No app required.
+User-Controlled
+• Swipe-Stage Cards — Three labeled swipeable cards; each with a hero field (72pt), supporting field, and fine-print strip. Gate card: zone as hero, boarding time + slim countdown bar as supporting. Auto-selected by time, fully manual- override via tabs.
+• Progressive Disclosure Pass — Opens at barcode only. One tap: gate view with boarding time and zone. Two taps: full card. Purely additive.
+Gesture / Voice
+• Double-Tap Zoom — Double-tap any field to expand it full-screen. Swipe
+down to dismiss. Enhancement on any layout.
+• Gesture-Driven Stages — Swipe up to advance stage, swipe down to go back. Long-press to expand any field full-screen. All navigation gestural.
+• Voice-Activated Pass — “What’s my boarding zone?” Answer spoken and shown in large text. Visual display is the fallback.
+Added in Devil’s Advocate Turn
+• Gate-Change Alert Layer — Any stage-aware interface needs a non-modal gate-change signal (amber flash + updated gate number) regardless of current view.
+• Anxiety-Aware Timer Mode — Countdown visibility made opt-in; default shows boarding time as a static label. Depleting arc enabled in settings.
+5.3 Selected Design Alternatives
+Three alternatives selected for prototyping, each addressing gate friction with a
+distinct interaction paradigm:
+• Stage Spotlight — selected because it directly serves the 89% who rated context-aware automation as useful or extremely useful. No navigation required for the most common case.
+8
+
+• Three-Card Pass — selected to serve the 32% who distrust hidden information. Full manual control via labeled tabs, nothing ever hidden, while enforcing strong visual hierarchy within each card.
+• Ambient Pass — selected because it reaches travelers who never open the app, screenshotters, mobile wallet users, low-battery scenarios, meeting users at their actual behavior.
+5.4 Textual Prototypes
+Alternative 1 — Stage Spotlight (Automated Progressive Disclosure)
+When the traveler opens the app at security, the QR code fills the upper two- thirds of the screen in a clean high-contrast panel with no competing text; a collapsed one-line drawer below reads “Seat 12A · Gate A18 · 6:35 AM” and expands on tap. As the flight timeline advances the panel transitions to Gate view: boarding time appears in 32pt type with a slim depleting arc beneath it. A peripheral urgency cue that empties as boarding approaches without displaying a ticking number and the zone identifier fills the center in 72pt bold. If a gate change occurs, the panel header flashes amber once and the new gate number pulses briefly. After boarding, the panel surfaces seat number in 80pt type with row and cabin in fine print below. A persistent “See all details” link at the bottom of every view provides one-tap access to the full card at any time.
+Alternative 2 — Three-Card Pass (Explicit User-Controlled Navigation)
+The boarding pass is structured as three labeled swipeable cards. Security, Gate, Boarding navigable via tabs at the top or horizontal swipe. The Security card shows the QR code at 70% of screen height with passenger name and flight number in fine print below. The Gate card enforces a strict hierarchy: zone in 72pt bold as the hero element; boarding time in 28pt type with a slim horizontal countdown bar directly beneath it as the supporting field; gate number, terminal, and status in a fine-print strip at the bottom. The Boarding card shows seat number in 80pt type centered on screen with a seat-map icon below. The active card is auto-selected by time, signaled by a highlighted tab, but the traveler can tap or swipe to any card at any moment. Nothing is ever more than one interaction away.
+Alternative 3 — Ambient Pass (Persistent Lock Screen + Widget Presence)
+9
+
+The Ambient Pass lives as a dynamic home screen widget and lock screen Live Activity, surfacing one contextual field at all times without opening the app. At check-in, a one-tap prompt adds the widget. At security: QR thumbnail with passenger name. At the gate: a compact chip showing gate number and boarding time with a slim countdown bar, readable on the lock screen without unlocking; a brief amber border flash signals any gate change. After the boarding group is called: seat number in 48pt type as the sole element. Tapping anywhere opens the full boarding pass. For travelers who screenshotted their pass or use mobile wallet, the widget delivers dynamic gate and countdown information that static screenshots cannot, meeting users at their actual behavior.
+6 APPENDIX A: FULL SURVEY QUESTIONS & RESPONSE SUMMARY
+• Survey Title: Airline Mobile Boarding Pass Experience
+• Description: Air travel is a task that millions of people perform regularly, yet
+the digital tools designed to support it often create unnecessary friction at the most critical moments. This survey intends to understand how travelers use mobile boarding passes Estimated Time: 5 minutes Instructions: Please answer all questions based on your most recent experience using a mobile boarding pass on your smartphone. All responses are anonymous.
+• Link: http://peersurvey.cc.gatech.edu/gt/9ea79d259d9f4f0db4354ece6df52cc1
+• Platform: Georgia Tech PeerSurvey
+• Valid Responses Analyzed: 38
+• Estimated Time: 5 ̃ minutes
+6.1 Section 1: Background & Travel Habits
+Q1. How often do you travel by air?
+Options: Very Frequently; Frequently; Occasionally; Rarely; Never
+ Response
+Occasionally (3×/year) Frequently (4×/year) Very Frequently (5+/year) Rarely (2×/year)
+Count (n=38) Percentage 17 45%
+12 32%
+5 13%
+4 11%
+      Q2. Which airline app or method do you use most frequently for your mobile boarding pass?
+10
+
+Multi-select. Options: Delta Air Lines; American Airlines; United Airlines; Southwest Airlines; Adding boarding pass to mobile wallet; Other — Another airline app; Other — Another method to handle boarding pass
+ Response
+Adding boarding pass to mobile wallet Delta Air Lines
+Other — Another airline app
+United Airlines
+American Airlines Southwest Airlines
+Other — Another method
+Count (n=38) Percentage 17 45%
+15 39%
+10 26%
+8 21% 5 13% 5 13% 2 5%
+         Notable ’Other’ responses included: JetBlue, KLM, Emirates, PIA, Lufthansa, Air Canada, Air France, Qatar, DigiYatra, Ctrip, Flair, Westjet, and third-party apps such as Expedia.
+Q3. How long have you been using mobile boarding passes (instead of paper)? Options: Less than a year; 1–2 years; 3–5 years; More than 5 years; Ever since digital
+boarding pass was introduced
+Response
+More than 5 years
+3–5 years
+Ever since digital boarding pass introduced 1–2 years
+Less than a year
+Count (n=38) Percentage 14 37%
+11 29%
+5 13%
+5 13% 3 8%
+        6.2 Section 2: Information Needs at Each Travel Stage
+Q4. At the TSA security checkpoint, which piece of information do you look for
+FIRST on your mobile boarding pass (other than providing physical ID)?
+Multi-select. Options: The barcode / QR code; My full name; My TSA PreCheck or Known Traveler status; My flight number
+Q5. At the departure gate, which piece of information do you find MOST impor- tant on your mobile boarding pass?
+Multi-select. Options: Gate number; Boarding time; Boarding group / zone; Seat number
+11
+
+ Response
+The barcode / QR code
+My full name
+My flight number
+My TSA PreCheck or Known Traveler status
+Count (n=38) Percentage
+  25 12 10 7
+66% 32% 26% 18%
+Percentage
+76% 74% 45% 39%
+     Response
+Gate number
+Boarding time Boarding group / zone Seat number
+Count (n=38) 29
+28
+17
+15
+      Q6. Once you have boarded the plane and are looking for your seat, which piece of information do you refer to on your boarding pass?
+Options: Seat number only; Seat number and flight number; I usually remember my seat and don’t need to check; I check multiple pieces of information to confirm I’m on the right flight
+ Response
+Seat number only
+I usually remember my seat and don’t need to check Seat number and flight number
+6.3 Section 3: Usability & Cognitive Load
+Count (n=38) Percentage 33 87%
+3 8%
+2 5%
+     Q7. Have you ever missed or almost missed a boarding group call, gate change, or security check because you couldn’t quickly find the right information on your boarding pass?
+Options: Yes, this has happened to me more than once; Yes, this has happened to me once; No, but I have felt stressed or anxious while searching for information; No, I have never had this problem
+Q8. If your mobile boarding pass could automatically highlight the most relevant information based on where you are in the airport, how useful would you find that feature?
+Options: Extremely useful — this would reduce a lot of stress; Somewhat useful — it
+12
+
+ Response
+No, I have never had this problem
+No, but I felt stressed or anxious while searching Yes, this has happened to me once
+Yes, this has happened to me more than once
+Count (n=38) Percentage 17 45%
+15 39%
+4 11%
+2 5%
+      would be a nice improvement; Neutral — I manage fine with the current design; Not useful — I prefer seeing all information at once; Not at all important — I do not want to change anything
+ Response
+Extremely useful — this would reduce a lot of stress Somewhat useful — it would be a nice improvement Neutral — I manage fine with the current design Not useful — I prefer seeing all information at once
+Count (n=38) Percentage 21 55%
+13 34%
+3 8%
+     1 3%
+Q9. Currently, how easy is it to find the specific information you need on your
+ mobile boarding pass at the DEPARTURE GATE?
+Options: Very easy — it’s immediately visible; Somewhat easy — I find it quickly after a brief scan; Neutral; Somewhat difficult — I have to search through several details; Very difficult — the screen feels cluttered and confusing
+ Response
+Somewhat easy — I find it quickly after a brief scan Somewhat difficult — I have to search through several details Neutral
+Very easy — it’s immediately visible
+Count (n=38) Percentage 25 66%
+8 21%
+3 8%
+     2 5% Q10. Currently, how easy is it to find the specific information you need on your
+ mobile boarding pass at the SECURITY CHECKPOINT?
+Options: Very easy — it’s immediately visible; Somewhat easy — I find it quickly after a brief scan; Neutral; Somewhat difficult — I have to search through several details; Very difficult — the screen feels cluttered and confusing
+Q11. How would you describe the overall amount and text size of information displayed on your mobile boarding pass?
+13
+
+ Response
+Somewhat easy — I find it quickly after a brief scan Somewhat difficult — I have to search through several details Neutral
+Very easy — it’s immediately visible
+Count (n=38) Percentage 22 58%
+6 16%
+6 16%
+4 11%
+      Options: Too little — I often can’t find what I need; About right — the information shown feels well-balanced; Neutral — apt info included, but highlighted info differs with each app; A little more than needed; Overwhelming — I feel confused by the number of details on screen
+ Response
+About right — the information shown feels well-balanced Neutral — apt info included, but highlighted info differs per app Too little — I often can’t find what I need
+A little more than needed
+Count (n=38) Percentage
+  18 12 5 3
+47% 32% 13% 8%
+    6.4 Section 4: Design Preferences
+Q12. Which of the following design improvements would most improve your
+mobile boarding pass experience?
+Multi-select. Options: Larger, more prominent barcode at security; A simplified view that shows only the 2–3 most relevant details for my current travel stage; Color-coded sections to visually separate different types of information; Alerts or notifications that push the right information to me at the right time; Other
+ Response
+A simplified view — 2–3 most relevant details per travel stage Alerts or notifications that push the right info at the right time Color-coded sections to visually separate information types Larger, more prominent barcode at security
+Other
+Count (n=38) Percentage 33 87%
+19 50%
+18 47%
+9 24% 2 5%
+       Notable ’Other’ suggestions: (1) An automatic timer that rings 3 ̃0 minutes before board- ing so travelers don’t miss their group. (2) ’Boarding Time Remaining’ or ’Boarding Group’ displayed as enlarged visual indicators when boarding begins.
+14
+
+6.5 Section 5: Overall Satisfaction & Demographics
+Q13. Overall, are you satisfied with the mobile boarding pass experience consid- ering each airline/third-party/phone wallet app has a slightly different design for it?
+Scale: 1 (Strongly Disagree) to 5 (Strongly Agree). Note: early responses used text labels; later responses used the numeric scale. Both are mapped to the 1–5 scale below.
+ Response
+4 — Agree / Satisfied
+3 — Neutral
+2 — Somewhat Dissatisfied 1 — Strongly Dissatisfied
+Count (n=38) Percentage 21 55%
+10 26%
+6 16%
+1 3%
+      Q14. Select your age:
+Options: Under 18; 18–29; 30–39; 40–49; 50–64; 65+
+ Response
+18–29 30–39 40–49 50–64 Under 18
+Count (n=38) Percentage 21 55%
+8 21%
+7 18%
+1 3% 1 3%
+       All responses are anonymous. Survey distributed via Georgia Tech OMSCS Ed Discus- sion and personal contacts.
+7 APPENDIX B: AI-ASSISTED BRAINSTORMING TRANSCRIPT
+Complete transcript of the AI-assisted brainstorming session with Claude (An- thropic, claude-sonnet-4-20250514). Four structured turns, as described in Section 4. Constraints: mobile-only, open to visual/UI redesign and interaction paradigm changes including gestures and voice, boarding time countdown required some- where in the solution space. Student prompts on blue background; AI responses on gray.
+STUDENT
+Let’s brainstorm redesigns of the airline mobile boarding pass. Constraints:
+15
+
+mobile-only, open to visual/UI redesign and interaction paradigm changes in- cluding gestures and voice, and a boarding time countdown should appear some- where in the solution space. Core problem: all info is shown with equal weight at all times, but travelers at security need mainly the barcode, at the gate they need gate number, boarding time, and zone, and after boarding they need only seat number. Generate 8 distinct concepts from conservative visual fixes to wilder interaction paradigm changes.
+CLAUDE (AI)
+Here are 8 mobile-only concepts:
+1. Stage Spotlight — A single focus panel shows only the 1–2 most critical fields for the current stage; other details collapse into a drawer below. At the gate: boarding time with a depleting arc beneath it, zone in 72pt bold below.
+2. Swipe-Stage Cards — Three swipeable full-screen cards (Security / Gate / Boarding), each optimized for its stage. Gate card: zone as hero field in 72pt, boarding time + slim countdown bar as supporting field. Labeled tabs for direct access.
+3. Ambient Color + Timer Ring — Background palette shifts by stage (navy → amber → green). At the gate, a large circular arc surrounds the boarding time and depletes as departure approaches. Zone is the second-largest element.
+4. Double-Tap Zoom — The traveler double-taps any field to expand it full-screen in maximum-legibility mode. At the gate, double-tap zone for a full-screen zone display. Swipe down to dismiss. Works as an enhancement on any layout.
+5. Voice-Activated Pass — Natural language queries: “What’s my boarding zone?” or “How long until boarding?” Answer spoken aloud and shown in large text. Visual display is the fallback; voice is an accelerator.
+6. Progressive Disclosure Pass — Opens at barcode + name only. One tap expands to gate view with boarding time and zone. Two taps reveals the full card. Purely additive — traveler controls depth.
+7. Lock Screen Live Card — Boarding pass as a persistent lock screen widget. At the gate: gate number + boarding time countdown bar, visible without unlocking. Transitions to seat number after boarding.
+16
+
+8. Gesture-Driven Stage Switching — Swipe up to advance stage (security → gate → boarding), swipe down to go back. Each stage snaps to a full-screen layout. Long-press any field to expand it. All navigation is gestural.
+STUDENT
+Push harder on the three with the most potential for addressing gate friction and integrating the boarding time countdown naturally. Give me 3 specific UI/interaction details for each.
+CLAUDE (AI)
+Expanding on Stage Spotlight, Swipe-Stage Cards, and Ambient Color + Timer Ring:
+Stage Spotlight:
+(1) At the gate, boarding time appears in 32pt type with a slim depleting arc beneath it — an urgency cue that empties as boarding approaches without dis- playing a ticking number. Zone fills the center in 72pt bold.
+(2) A one-line collapsed drawer at the bottom always shows “Seat 12A · Gate A18 · 6:35 AM” — a persistent safety net accessible with one tap.
+(3) Stage transitions use a soft cross-fade with a haptic pulse so the traveler feels the view has changed even if the app is backgrounded.
+Swipe-Stage Cards:
+(1) Each card has a strict three-level hierarchy: hero field at 72pt (barcode / zone / seat), supporting field at 28pt (name+flight / boarding time + slim countdown
+bar / row+cabin), fine-print strip for everything else.
+(2) Labeled tabs (“Security · Gate · Boarding”) replace dot indicators so travelers unfamiliar with swipe navigation can tap directly to any stage.
+(3) A gate change causes the Gate card header to flash amber once and the new gate number to pulse briefly — a non-intrusive alert that requires no modal.
+Ambient Color + Timer Ring:
+(1) The ring is a large circular arc (80% of screen width) centered on the gate
+screen, with boarding time in 40pt inside it. The ring depletes clockwise and
+17
+
+pulses once when boarding begins.
+(2) Zone sits below the ring in 56pt bold — the second-largest element after the ring.
+(3) All text passes WCAG AA contrast on amber; a high-contrast toggle in set- tings switches to a neutral dark background for users who need it.
+STUDENT
+Play devil’s advocate. What assumptions might lead us astray — think about users who distrust automation, accessibility needs, international travelers, gate changes, or travelers who never open the app.
+CLAUDE (AI)
+Several worth examining:
+Stage transitions may not be clean. A gate change at T-15, a delay, or secondary screening scrambles time-based models. A design that has already advanced to Gate view must surface gate changes prominently — otherwise it actively misleads the traveler.
+Many travelers never open the app. Screenshotters, mobile wallet users, and low-battery travelers won’t benefit from any in-app feature. The countdown and stage-aware logic only help if the design also works as a widget or lock screen presence.
+Infrequent flyers may distrust hidden information. Users who fly 1–2 times per year may panic when their confirmation number isn’t immediately visible. Any design that collapses information needs a clearly labeled escape hatch.
+Countdown arcs can increase anxiety. A visibly depleting ring may heighten stress for anxious travelers. Making the countdown opt-in rather than always-on is worth considering.
+Gestural navigation has accessibility barriers. Swipe-up-to-advance and long- press patterns require motor ability and learned behavior. Every gesture needs a tap-based equivalent.
+Voice fails in loud environments. Airports are noisy. A voice interface that mis- hears “Zone 3” in a crowded terminal makes the problem worse. Voice should
+18
+
+be an enhancement, never the only path.
+STUDENT
+Synthesize 3 distinct design alternatives I could prototype, each with a genuinely different interaction paradigm. Include how boarding time countdown is han- dled in each.
+CLAUDE (AI)
+Three distinct alternatives:
+Alternative 1 — Stage Spotlight (Automated Progressive Disclosure): The board- ing pass opens to a focus panel that automatically surfaces the most critical information for the current stage — QR code at security, boarding time + de- pleting arc + zone at the gate, seat number after boarding. All other details are always one tap away in a collapsed drawer. The paradigm is the interface comes to the traveler.
+Alternative 2 — Three-Card Pass (Explicit User-Controlled Navigation): Three la- beled swipeable cards — Security, Gate, Boarding — each with a single dominant hero field and strict hierarchy. The Gate card shows zone in 72pt as the hero, boarding time with a slim countdown bar as the supporting field. The active card is auto-selected by time but the traveler retains full manual control via tabs; nothing is ever hidden. The paradigm is you are always in control, but the right default is already selected.
+Alternative 3 — Ambient Pass (Lock Screen + Widget Presence): The boarding pass lives as a home screen widget and lock screen Live Activity, surfacing one field at a time without opening the app. At the gate: gate number + boarding time + slim countdown bar in a compact chip on the lock screen. After boarding: seat number in large type. Full pass accessible via one tap. The paradigm is the information finds the traveler.
+8 REFERENCES
+• Claude AI to analyze survey results from JSON data
+• Image reference link
+19
+
+9 INITIAL PROTOTYPING
+9.1 Alternative 1: Stage Spotlight (Automated Progressive Disclosure)
+Description: This prototype uses a single, dynamic panel that auto-promotes information based on the traveler’s stage. It relies on automation to reduce cognitive load while providing a manual "escape hatch" for secondary information.
+Prototype Image: [See Figure 2 in Appendix D]
+Rationale: This design is rooted in Nielsen’s Heuristic #8 (Aesthetic and Minimalist Design) by suppressing irrelevant fields. It leverages automation to meet the 89% of survey respondents who requested context-aware highlighting. By using a depleting arc for the countdown, it provides a peripheral urgency cue (Recognition over Recall, H6) without the stress of a ticking numeric clock.
+
+9.2 Alternative 2: Three-Card Pass (Explicit User-Controlled Navigation)
+Description: A structured interface consisting of three labeled, swipeable cards: Security, Gate, and Boarding. Each card enforces a strict visual hierarchy with a "hero" field.
+Prototype Image: [See Figure 3 in Appendix D]
+Rationale: This alternative prioritizes Nielsen’s Heuristic #3 (User Control and Freedom) and Heuristic #1 (Visibility of System Status). It serves the 32% of users who expressed a need for all info to be present but better highlighted. The horizontal swipe paradigm maps the digital interface to the sequential, real-world journey (H2: Match between System and the Real World).
+
+9.3 Alternative 3: Ambient Pass (Lock Screen + Widget Presence)
+Description: A non-app interface that leverages OS-level widgets and Live Activities to surface one contextual field at a time directly on the lock screen.
+Prototype Image: [See Figure 4 in Appendix D]
+Rationale: This design addresses the interaction cost of repeatedly unlocking a phone and navigating to an app. It is rooted in the principle of "meeting users where they are," specifically targeting the 45% of respondents who primarily use mobile wallets. It minimizes memory load by ensuring the most critical information is always visible (H6: Recognition rather than Recall).
+
+10 APPENDIX D: LOW-FIDELITY PROTOTYPES
+Figure 2: Stage Spotlight Prototype (Gate View). A hand-drawn sketch showing a clean screen with "ZONE 4" in 72pt font, a bold boarding time of "10:15 AM", and a semi-circular arc that is 75% depleted. Below, a small arrow indicates a collapsible "More Details" drawer.
+
+Figure 3: Three-Card Pass Prototype (Security View). A sketch showing three tabs at the top: [Security] [Gate] [Boarding]. The Security tab is highlighted. The center of the screen is dominated by a high-contrast QR code, with the passenger name "S. Rao" clearly legible below it.
+
+Figure 4: Ambient Pass Prototype (Lock Screen). A sketch of an iPhone lock screen. Below the clock, a compact dynamic widget displays: "Gate B2 · Boarding 10:15 AM" with a slim horizontal progress bar. A small notification badge in the corner reads "Seat 12A" as the next upcoming field.
+
+11 PROTOTYPE EVALUATION
+11.1 Evaluation Methodology
+The three low-fidelity prototypes were evaluated against the primary needs identified in the needfinding phase: reducing cognitive load at the gate, providing dynamic prioritization, and ensuring the right information is visible at the right stage. Evaluation was conducted using a walkthrough of the three airport stages (security, gate, boarding) while referencing the design goals and Nielsen’s heuristics.
+
+11.2 Evaluation of Alternative 1: Stage Spotlight
+Strengths: This design most effectively addresses the "information overload" problem (H8) by suppressing 80% of the typical boarding pass clutter. By promoting the boarding zone and time at the gate stage, it directly tackles the highest-friction point identified in Insight 2. The depleting arc provides a non-numeric urgency cue that reduces anxiety while maintaining awareness (H6).
+Weaknesses: The primary risk is the "Black Box" effect. If the automated transition fails (e.g., due to a delay or gate change not syncing), the user may find it difficult to trust the system. The "See all details" escape hatch is a critical mitigation for Heuristic #3 (User Control).
+
+11.3 Evaluation of Alternative 2: Three-Card Pass
+Strengths: This alternative provides the strongest sense of user control and freedom (H3). It eliminates the fear of "missing" information because all cards are always accessible. The clear mapping to the sequential airport journey (Security -> Gate -> Boarding) provides a natural mental model (H2).
+Weaknesses: Compared to the Stage Spotlight, it requires more active interaction. A traveler juggling luggage and a phone may find swiping or tapping tabs slightly more burdensome than a zero-interaction automated view. However, it serves the 32% of survey respondents who prefer seeing everything over automated filtering.
+
+11.4 Evaluation of Evaluation of Alternative 3: Ambient Pass
+Strengths: This design has the lowest interaction cost. By surfacing information on the lock screen, it eliminates the need to unlock the phone, find the app, and wait for it to load—a major benefit during high-stress moments like the security line (H6). It effectively reaches the 45% of users who rely on mobile wallets.
+Weaknesses: Space constraints on the lock screen limit the ability to provide context or "fine print." It works best as a companion to a full pass rather than a standalone replacement. It also faces the same automation risks as the Stage Spotlight regarding accurate stage transitions.
+
+11.5 Summary of Findings
+While all three alternatives significantly improve upon the current industry standard (Delta app), the Stage Spotlight is the most promising for the majority of users (89% preference). The Three-Card Pass serves as a robust alternative for those who prioritize control. The final design should likely integrate the "Ambient" features as a system-level extension of the "Spotlight" app experience.
+21
