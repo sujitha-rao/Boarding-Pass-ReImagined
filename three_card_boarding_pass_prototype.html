@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Three-Card Boarding Pass Prototype</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f0f0f0;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem 3rem;gap:1.25rem;min-height:100vh}
+  .stage-lbl{font-size:11px;color:#666;letter-spacing:.06em;text-transform:uppercase;text-align:center}
+  .phone{width:320px;background:#111;border-radius:40px;padding:12px;box-shadow:0 0 0 1px #2a2a2a}
+  .inner{background:#fff;border-radius:28px;overflow:hidden;min-height:555px;display:flex;flex-direction:column}
+  .status{display:flex;justify-content:space-between;align-items:center;padding:10px 20px 4px;font-size:11px;font-weight:600;color:#111;background:#fff}
+  .pill{width:88px;height:24px;background:#111;border-radius:12px}
+  .appbar{display:flex;align-items:center;justify-content:space-between;padding:5px 14px 7px;background:#c8102e}
+  .appbar-logo{font-size:14px;font-weight:800;letter-spacing:.14em;color:#fff}
+  .appbar-route{font-size:10px;color:rgba(255,255,255,.85);font-weight:500}
+  .appbar-menu{font-size:18px;color:#fff;cursor:pointer}
+  .tabs{display:flex;background:#a50d26}
+  .tab{flex:1;text-align:center;font-size:9.5px;font-weight:600;padding:7px 4px 6px;color:rgba(255,255,255,.6);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;text-transform:uppercase;letter-spacing:.04em;user-select:none}
+  .tab.active{color:#fff;border-bottom-color:#fff;background:#c8102e}
+  .card{flex:1;display:flex;flex-direction:column;background:#fff}
+  .sec-hdr{padding:10px 14px 6px;border-bottom:.5px solid #f0f0f0}
+  .sec-name{font-size:15px;font-weight:700;color:#111}
+  .sec-meta{font-size:11px;color:#666;margin-top:1px}
+  .badges{display:flex;gap:5px;margin-top:5px}
+  .bdg{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;letter-spacing:.04em}
+  .bdg-tsa{background:#e8f4e8;color:#1a6b1a}
+  .bdg-did{background:#fdecea;color:#a00}
+  .qr-zone{display:flex;flex-direction:column;align-items:center;padding:10px 14px 0;flex:1}
+  .qr-lbl{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#bbb;margin-bottom:6px}
+  .qr-box{width:164px;height:164px;border:1.5px solid #e0e0e0;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#fafafa}
+  .qr-box svg{width:148px;height:148px}
+  .hint{margin-top:10px;font-size:10.5px;color:#c8102e;background:#fdf0f0;border-radius:6px;padding:5px 12px;font-weight:500}
+  .gate-body{padding:8px 14px 0;flex:1;display:flex;flex-direction:column}
+  .alert{display:none;background:#fff8e1;border:1px solid #f0c040;border-radius:6px;padding:5px 10px;font-size:10px;font-weight:600;color:#7a5800;margin-bottom:8px;align-items:center;gap:6px}
+  .alert.show{display:flex}
+  .adot{width:7px;height:7px;border-radius:50%;background:#e6a800;flex-shrink:0}
+  .glbl{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#bbb;display:block;margin-bottom:1px}
+  .gnum{font-size:58px;font-weight:800;color:#c8102e;line-height:1;letter-spacing:-1px}
+  .gterm{font-size:11px;color:#999;margin-top:2px;margin-bottom:8px}
+  .zone-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .zone-val{font-size:38px;font-weight:800;color:#003087;line-height:1}
+  .zone-bdg{font-size:9px;background:#e8eef8;color:#003087;padding:2px 6px;border-radius:3px;font-weight:700}
+  .time-row{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+  .time-val{font-size:22px;font-weight:700;color:#111}
+  .ontime{font-size:9px;background:#e8f5e9;color:#1a6b1a;padding:2px 6px;border-radius:3px;font-weight:700}
+  .bar-track{height:4px;background:#f0f0f0;border-radius:2px;overflow:hidden;margin-bottom:2px}
+  .bar-fill{height:4px;background:#c8102e;border-radius:2px;transition:width 1s linear}
+  .bar-meta{display:flex;justify-content:space-between;margin-bottom:8px}
+  .bar-txt{font-size:10px;color:#c8102e;font-weight:600}
+  .bar-tog{font-size:10px;color:#bbb;cursor:pointer;user-select:none}
+  .qr-mini{display:flex;align-items:center;gap:10px;background:#fdf0f0;border-radius:8px;padding:7px 10px;margin-top:auto}
+  .qr-mini svg{width:46px;height:46px;flex-shrink:0}
+  .qr-mini-txt{font-size:10px;color:#666;line-height:1.6}
+  .qr-mini-txt strong{color:#111}
+  .fl-body{padding:8px 14px 0;flex:1;display:flex;flex-direction:column}
+  .seat-hero{text-align:center;padding:10px 0 4px}
+  .seat-lbl{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#bbb;margin-bottom:3px}
+  .seat-num{font-size:74px;font-weight:800;color:#c8102e;line-height:1;letter-spacing:-2px}
+  .seat-sub{font-size:11px;color:#888;margin-top:3px}
+  .seat-hint{display:flex;align-items:center;justify-content:center;gap:6px;background:#fdf0f0;border-radius:8px;padding:7px 12px;margin-top:8px;font-size:11px;color:#c8102e;font-weight:500;cursor:pointer}
+  .fl-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px;margin-top:10px;padding-top:10px;border-top:.5px solid #f0f0f0}
+  .fl-grid div span{display:block;color:#bbb;font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:1px}
+  .fl-grid div strong{color:#111;font-size:12px}
+  .actions{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+  .act-btn{display:flex;align-items:center;gap:8px;background:#fafafa;border:.5px solid #e8e8e8;border-radius:8px;padding:8px 12px;font-size:11px;color:#333;font-weight:500;cursor:pointer}
+  .act-ico{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;background:#fdecea}
+  .footer{padding:7px 14px;border-top:.5px solid #f0f0f0;display:flex;justify-content:space-between;align-items:center;background:#fafafa}
+  .footer-route{font-size:10px;color:#888;font-weight:500}
+  .footer-link{font-size:10px;color:#c8102e;font-weight:500;cursor:pointer}
+  .controls{display:flex;flex-direction:column;align-items:center;gap:8px;width:320px}
+  .ctrl-row{display:flex;gap:6px;width:100%}
+  .ctrl{flex:1;padding:8px 4px;border-radius:8px;border:1px solid #ddd;background:#fff;font-size:10.5px;font-weight:500;color:#333;cursor:pointer;text-align:center;transition:background .12s}
+  .ctrl:hover{background:#f5f5f5}
+  .ctrl.red{border-color:#c8102e;color:#c8102e}
+  .ctrl.red:hover{background:#fdf0f0}
+  .ctrl-info{font-size:11px;color:#888;text-align:center}
+</style>
+</head>
+<body>
+  <div class="stage-lbl" id="slbl">Simulating: departure gate view</div>
+
+  <div class="phone">
+    <div class="inner">
+      <div class="status">
+        <span>9:41</span>
+        <div class="pill"></div>
+        <span>&#9679;&#9679;&#9679;</span>
+      </div>
+      <div class="appbar">
+        <div class="appbar-logo">DELTA</div>
+        <div class="appbar-route">JFK &#8594; LAX &middot; DL 142</div>
+        <div class="appbar-menu">&#9776;</div>
+      </div>
+      <div class="tabs">
+        <div class="tab" id="t-sec" onclick="go('sec')">Security</div>
+        <div class="tab active" id="t-gate" onclick="go('gate')">Gate</div>
+        <div class="tab" id="t-fl" onclick="go('fl')">In Flight</div>
+      </div>
+
+      <!-- SECURITY -->
+      <div class="card" id="c-sec" style="display:none">
+        <div class="sec-hdr">
+          <div class="sec-name">Sujitha Rao</div>
+          <div class="sec-meta">Flight DL 142 &middot; South Terminal</div>
+          <div class="badges">
+            <span class="bdg bdg-tsa">TSA PRE&#10003;</span>
+            <span class="bdg bdg-did">DIGITAL ID</span>
+          </div>
+        </div>
+        <div class="qr-zone">
+          <div class="qr-lbl">Scan at security checkpoint</div>
+          <div class="qr-box">
+            <svg viewBox="0 0 148 148" xmlns="http://www.w3.org/2000/svg">
+              <rect width="148" height="148" fill="white"/>
+              <rect x="10" y="10" width="52" height="52" fill="none" stroke="#111" stroke-width="4"/>
+              <rect x="18" y="18" width="36" height="36" fill="#111"/>
+              <rect x="86" y="10" width="52" height="52" fill="none" stroke="#111" stroke-width="4"/>
+              <rect x="94" y="18" width="36" height="36" fill="#111"/>
+              <rect x="10" y="86" width="52" height="52" fill="none" stroke="#111" stroke-width="4"/>
+              <rect x="18" y="94" width="36" height="36" fill="#111"/>
+              <rect x="86" y="86" width="9" height="9" fill="#111"/>
+              <rect x="99" y="86" width="9" height="9" fill="#111"/>
+              <rect x="112" y="86" width="9" height="9" fill="#111"/>
+              <rect x="125" y="86" width="13" height="9" fill="#111"/>
+              <rect x="86" y="99" width="9" height="9" fill="#111"/>
+              <rect x="99" y="99" width="18" height="9" fill="#111"/>
+              <rect x="125" y="99" width="9" height="9" fill="#111"/>
+              <rect x="86" y="112" width="22" height="9" fill="#111"/>
+              <rect x="112" y="112" width="9" height="9" fill="#111"/>
+              <rect x="86" y="125" width="9" height="13" fill="#111"/>
+              <rect x="99" y="125" width="17" height="9" fill="#111"/>
+              <rect x="120" y="125" width="18" height="9" fill="#111"/>
+              <rect x="68" y="68" width="10" height="10" fill="#111"/>
+            </svg>
+          </div>
+          <div class="hint">Gate A18 &middot; South Terminal &middot; Boards 10:15 AM</div>
+        </div>
+        <div class="footer">
+          <div class="footer-route">JFK &#8594; LAX &middot; Delta</div>
+          <div style="font-size:10px;color:#bbb">Conf: HJ8C5L</div>
+        </div>
+      </div>
+
+      <!-- GATE -->
+      <div class="card" id="c-gate" style="display:flex">
+        <div class="gate-body">
+          <div class="alert" id="galert">
+            <div class="adot"></div>
+            Gate changed: A18 &#8594; <strong style="margin-left:3px">B22</strong>
+          </div>
+          <div>
+            <span class="glbl">Departure gate</span>
+            <div class="gnum" id="gnum">A18</div>
+            <div class="gterm">South Terminal</div>
+          </div>
+          <div class="zone-row">
+            <div>
+              <span class="glbl">Zone</span>
+              <div class="zone-val">4</div>
+            </div>
+            <span class="zone-bdg">BOARDING GROUP</span>
+          </div>
+          <div>
+            <span class="glbl">Boarding time</span>
+            <div class="time-row">
+              <div class="time-val">10:15 AM</div>
+              <span class="ontime">On Time</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" id="bfill" style="width:62%"></div></div>
+            <div class="bar-meta">
+              <div class="bar-txt" id="btxt">Boards in 22 min</div>
+              <div class="bar-tog" id="btog" onclick="toggleBar()">hide</div>
+            </div>
+          </div>
+          <div class="qr-mini">
+            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+              <rect width="80" height="80" fill="white"/>
+              <rect x="5" y="5" width="28" height="28" fill="none" stroke="#111" stroke-width="2.5"/>
+              <rect x="10" y="10" width="18" height="18" fill="#111"/>
+              <rect x="47" y="5" width="28" height="28" fill="none" stroke="#111" stroke-width="2.5"/>
+              <rect x="52" y="10" width="18" height="18" fill="#111"/>
+              <rect x="5" y="47" width="28" height="28" fill="none" stroke="#111" stroke-width="2.5"/>
+              <rect x="10" y="52" width="18" height="18" fill="#111"/>
+              <rect x="47" y="47" width="5" height="5" fill="#111"/>
+              <rect x="56" y="47" width="5" height="5" fill="#111"/>
+              <rect x="65" y="47" width="10" height="5" fill="#111"/>
+              <rect x="47" y="56" width="10" height="5" fill="#111"/>
+              <rect x="62" y="56" width="13" height="5" fill="#111"/>
+              <rect x="47" y="65" width="14" height="5" fill="#111"/>
+              <rect x="66" y="65" width="9" height="5" fill="#111"/>
+              <rect x="47" y="72" width="5" height="8" fill="#111"/>
+              <rect x="57" y="72" width="18" height="5" fill="#111"/>
+            </svg>
+            <div class="qr-mini-txt">
+              Scan at jetbridge<br>
+              <strong>Seat 12A</strong> &middot; Comfort+<br>
+              <span style="color:#bbb">Conf HJ8C5L</span>
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          <div class="footer-route">JFK &#8594; LAX &middot; Delta</div>
+          <div class="footer-link">See all details</div>
+        </div>
+      </div>
+
+      <!-- IN FLIGHT -->
+      <div class="card" id="c-fl" style="display:none">
+        <div class="fl-body">
+          <div class="seat-hero">
+            <div class="seat-lbl">Your seat</div>
+            <div class="seat-num">12A</div>
+            <div class="seat-sub">Window &middot; Comfort+ &middot; Row 12</div>
+          </div>
+          <div class="seat-hint">View seat map &#8594;</div>
+          <div class="fl-grid">
+            <div><span>Flight</span><strong>DL 142</strong></div>
+            <div><span>Departs</span><strong>10:35 AM</strong></div>
+            <div><span>Duration</span><strong>5h 42m</strong></div>
+            <div><span>Arrives</span><strong>2:17 PM</strong></div>
+          </div>
+          <div class="actions">
+            <div class="act-btn"><div class="act-ico">&#127869;</div>Order meal</div>
+            <div class="act-btn"><div class="act-ico">&#9855;</div>Request assistance</div>
+          </div>
+        </div>
+        <div class="footer">
+          <div class="footer-route">JFK &#8594; LAX &middot; Delta</div>
+          <div style="font-size:10px;color:#bbb">Conf: HJ8C5L</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="ctrl-info">Simulate a scenario:</div>
+    <div class="ctrl-row">
+      <div class="ctrl" onclick="go('sec');setLbl('security checkpoint')">&#8594; Security</div>
+      <div class="ctrl" onclick="go('gate');setLbl('departure gate')">&#8594; Gate</div>
+      <div class="ctrl" onclick="go('fl');setLbl('in flight')">&#8594; In Flight</div>
+    </div>
+    <div class="ctrl-row">
+      <div class="ctrl red" onclick="gateChange()">Simulate gate change</div>
+      <div class="ctrl" onclick="resetGate()">Reset gate</div>
+    </div>
+  </div>
+
+<script>
+var barVisible=true,mins=22,timer=null;
+function go(k){
+  ['sec','gate','fl'].forEach(function(x){
+    document.getElementById('c-'+x).style.display=x===k?'flex':'none';
+    document.getElementById('t-'+x).className='tab'+(x===k?' active':'');
+  });
+  if(k==='gate'&&!timer)startTimer();
+}
+function setLbl(s){document.getElementById('slbl').textContent='Simulating: '+s+' view';}
+function gateChange(){
+  go('gate');setLbl('departure gate — gate change');
+  document.getElementById('galert').classList.add('show');
+  var g=document.getElementById('gnum');
+  g.textContent='B22';g.style.color='#e6a800';
+  setTimeout(function(){g.style.color='#c8102e';},1200);
+}
+function resetGate(){
+  document.getElementById('galert').classList.remove('show');
+  var g=document.getElementById('gnum');g.textContent='A18';g.style.color='#c8102e';
+}
+function toggleBar(){
+  barVisible=!barVisible;
+  document.getElementById('btxt').style.visibility=barVisible?'visible':'hidden';
+  document.getElementById('btog').textContent=barVisible?'hide':'show';
+}
+function startTimer(){
+  timer=setInterval(function(){
+    if(mins>0){
+      mins--;
+      document.getElementById('bfill').style.width=Math.round(mins/40*100)+'%';
+      document.getElementById('btxt').textContent=mins>0?'Boards in '+mins+' min':'Boarding now';
+      if(mins<=5)document.getElementById('bfill').style.background='#8b0000';
+    }else clearInterval(timer);
+  },2000);
+}
+startTimer();
+</script>
+</body>
+</html>
