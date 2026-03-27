@@ -9,7 +9,7 @@
 
 body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:linear-gradient(135deg,#1a0a0a 0%,#2d0808 40%,#1a1a2e 100%);
+  background:linear-gradient(135deg,#f5e6e8 0%,#e8eef5 50%,#f0e8f5 100%);
   min-height:100vh;
   display:flex;
   flex-direction:column;
@@ -25,10 +25,10 @@ body{
   animation:fadeDown .6s ease both;
 }
 .page-header h1{
-  font-size:22px;font-weight:700;color:#fff;letter-spacing:.06em;
+  font-size:22px;font-weight:800;color:#1a1a1a;letter-spacing:.06em;
   text-transform:uppercase;
 }
-.page-header p{font-size:12px;color:rgba(255,255,255,.45);margin-top:4px;letter-spacing:.04em}
+.page-header p{font-size:13px;color:#555;margin-top:5px;letter-spacing:.03em;font-weight:500}
 
 /* ── MAIN LAYOUT ── */
 .scene{
@@ -49,26 +49,21 @@ body{
   flex-shrink:0;
 }
 .side-card{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.7);
+  border:1px solid rgba(0,0,0,.08);
   border-radius:14px;
   padding:14px 16px;
   transition:all .4s cubic-bezier(.34,1.56,.64,1);
-  opacity:.35;
+  opacity:.45;
   transform:translateX(0) scale(.97);
   cursor:default;
 }
 .side-card.active{
-  background:rgba(200,16,46,.12);
-  border-color:rgba(200,16,46,.4);
+  background:#fff;
+  border-color:rgba(200,16,46,.25);
   opacity:1;
   transform:translateX(0) scale(1);
-  box-shadow:0 0 24px rgba(200,16,46,.15);
-}
-.side-right .side-card.active{
-  background:rgba(200,16,46,.12);
-  border-color:rgba(200,16,46,.4);
-  box-shadow:0 0 24px rgba(200,16,46,.15);
+  box-shadow:0 4px 20px rgba(200,16,46,.1);
 }
 .sc-icon{
   width:32px;height:32px;border-radius:8px;
@@ -78,9 +73,9 @@ body{
   transition:background .4s;
 }
 .side-card.active .sc-icon{background:#c8102e;}
-.sc-title{font-size:11px;font-weight:700;color:#fff;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px}
-.sc-body{font-size:10.5px;color:rgba(255,255,255,.55);line-height:1.6}
-.sc-body strong{color:rgba(255,255,255,.85);font-weight:600}
+.sc-title{font-size:11px;font-weight:800;color:#1a1a1a;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px}
+.sc-body{font-size:11px;color:#444;line-height:1.65}
+.sc-body strong{color:#111;font-weight:700}
 .sc-tag{
   display:inline-block;margin-top:8px;
   font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
@@ -164,14 +159,14 @@ body{
 /* ── SECURITY ── */
 .sec-hdr{padding:10px 14px 6px;border-bottom:.5px solid #f0f0f0}
 .sec-name{font-size:15px;font-weight:700;color:#111}
-.sec-meta{font-size:11px;color:#666;margin-top:1px}
+.sec-meta{font-size:11px;color:#444;margin-top:1px}
 .badges{display:flex;gap:5px;margin-top:5px}
 .bdg{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;letter-spacing:.04em}
-.bdg-tsa{background:#e8f4e8;color:#1a6b1a}
-.bdg-did{background:#fdecea;color:#a00}
+.bdg-tsa{background:#d4edda;color:#145a1f}
+.bdg-did{background:#fde8e8;color:#8b0000}
 
 .qr-zone{display:flex;flex-direction:column;align-items:center;padding:10px 14px 0;flex:1}
-.qr-lbl{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#bbb;margin-bottom:8px}
+.qr-lbl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#777;margin-bottom:8px;font-weight:600}
 
 .qr-box{
   width:168px;height:168px;border:1.5px solid #e0e0e0;border-radius:10px;
@@ -202,8 +197,8 @@ body{
 
 .alert{
   display:none;background:#fff8e1;border:1px solid #f0c040;
-  border-radius:6px;padding:5px 10px;font-size:10px;font-weight:600;
-  color:#7a5800;margin-bottom:8px;align-items:center;gap:6px;
+  border-radius:6px;padding:8px 12px;font-size:13px;font-weight:700;
+  color:#7a5800;margin-bottom:8px;align-items:center;gap:8px;
   animation:slideDown .3s ease both;
 }
 .alert.show{display:flex;}
@@ -217,7 +212,7 @@ body{
 }
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-.glbl{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#bbb;display:block;margin-bottom:1px}
+.glbl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#555;font-weight:700;display:block;margin-bottom:1px}
 
 .gnum{
   font-size:58px;font-weight:800;color:#c8102e;line-height:1;letter-spacing:-1px;
@@ -228,7 +223,7 @@ body{
 @keyframes numFlash{
   0%{transform:scale(1.08)}50%{transform:scale(.96)}100%{transform:scale(1)}
 }
-.gterm{font-size:11px;color:#999;margin-top:2px;margin-bottom:8px}
+.gterm{font-size:12px;color:#555;font-weight:500;margin-top:2px;margin-bottom:8px}
 
 .zone-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .zone-val{
@@ -236,13 +231,13 @@ body{
   animation:zoneIn .5s cubic-bezier(.34,1.56,.64,1) both .1s;
 }
 @keyframes zoneIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
-.zone-bdg{font-size:9px;background:#e8eef8;color:#003087;padding:2px 6px;border-radius:3px;font-weight:700}
+.zone-bdg{font-size:9px;background:#dce6f5;color:#002060;padding:2px 8px;border-radius:3px;font-weight:700;letter-spacing:.04em}
 
 .time-row{display:flex;align-items:center;gap:8px;margin-bottom:3px}
 .time-val{font-size:22px;font-weight:700;color:#111}
 .ontime{font-size:9px;background:#e8f5e9;color:#1a6b1a;padding:2px 6px;border-radius:3px;font-weight:700}
 
-.bar-track{height:5px;background:#f0f0f0;border-radius:3px;overflow:hidden;margin-bottom:2px}
+.bar-track{height:5px;background:#ddd;border-radius:3px;overflow:hidden;margin-bottom:2px}
 .bar-fill{
   height:5px;background:#c8102e;border-radius:3px;
   transition:width 1s linear,background .5s;
@@ -257,9 +252,9 @@ body{
   0%{left:-60%}100%{left:140%}
 }
 .bar-meta{display:flex;justify-content:space-between;margin-bottom:8px}
-.bar-txt{font-size:10px;color:#c8102e;font-weight:600}
-.bar-tog{font-size:10px;color:#bbb;cursor:pointer;user-select:none;transition:color .2s}
-.bar-tog:hover{color:#666}
+.bar-txt{font-size:11px;color:#c8102e;font-weight:700}
+.bar-tog{font-size:10px;color:#888;cursor:pointer;user-select:none;transition:color .2s}
+.bar-tog:hover{color:#333}
 
 .qr-mini{
   display:flex;align-items:center;gap:12px;background:#fdf0f0;
@@ -267,19 +262,19 @@ body{
   border:1px solid rgba(200,16,46,.1);
 }
 .qr-mini svg{width:88px;height:88px;flex-shrink:0}
-.qr-mini-txt{font-size:10px;color:#666;line-height:1.6}
+.qr-mini-txt{font-size:11px;color:#444;line-height:1.7}
 .qr-mini-txt strong{color:#111}
 
 /* ── IN FLIGHT ── */
 .fl-body{padding:8px 14px 0;flex:1;display:flex;flex-direction:column}
 .seat-hero{text-align:center;padding:10px 0 4px}
-.seat-lbl{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#bbb;margin-bottom:3px}
+.seat-lbl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#555;font-weight:700;margin-bottom:3px}
 .seat-num{
   font-size:74px;font-weight:800;color:#c8102e;line-height:1;letter-spacing:-2px;
   animation:seatBounce .6s cubic-bezier(.34,1.56,.64,1) both;
 }
 @keyframes seatBounce{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
-.seat-sub{font-size:11px;color:#888;margin-top:3px}
+.seat-sub{font-size:12px;color:#444;font-weight:500;margin-top:3px}
 .seat-hint{
   display:flex;align-items:center;justify-content:center;gap:6px;
   background:#fdf0f0;border-radius:8px;padding:7px 12px;margin-top:8px;
@@ -300,7 +295,7 @@ body{
 .fl-grid div:nth-child(3){animation-delay:.15s}
 .fl-grid div:nth-child(4){animation-delay:.2s}
 @keyframes gridIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.fl-grid div span{display:block;color:#bbb;font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:1px}
+.fl-grid div span{display:block;color:#666;font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;font-weight:700}
 .fl-grid div strong{color:#111;font-size:12px}
 .actions{display:flex;flex-direction:column;gap:6px;margin-top:10px}
 .act-btn{
@@ -317,27 +312,27 @@ body{
   padding:7px 14px;border-top:.5px solid #f0f0f0;
   display:flex;justify-content:space-between;align-items:center;background:#fafafa;
 }
-.footer-route{font-size:10px;color:#888;font-weight:500}
-.footer-link{font-size:10px;color:#c8102e;font-weight:500;cursor:pointer}
+.footer-route{font-size:11px;color:#444;font-weight:600}
+.footer-link{font-size:11px;color:#c8102e;font-weight:700;cursor:pointer}
 
 /* ── CONTROLS ── */
 .controls{
   margin-top:24px;display:flex;flex-direction:column;align-items:center;
   gap:10px;width:300px;animation:fadeUp .8s ease both .3s;
 }
-.ctrl-label{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.06em;text-transform:uppercase;text-align:center}
+.ctrl-label{font-size:11px;color:#444;letter-spacing:.06em;text-transform:uppercase;text-align:center;font-weight:600}
 .ctrl-row{display:flex;gap:6px;width:100%}
 .ctrl{
   flex:1;padding:9px 4px;border-radius:10px;
-  border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);
-  font-size:10.5px;font-weight:600;color:rgba(255,255,255,.8);
+  border:1px solid rgba(0,0,0,.12);background:rgba(255,255,255,.8);
+  font-size:10.5px;font-weight:600;color:rgba(0,0,0,.7);
   cursor:pointer;text-align:center;
   transition:all .2s;letter-spacing:.02em;
 }
-.ctrl:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);transform:translateY(-1px)}
+.ctrl:hover{background:#fff;border-color:rgba(0,0,0,.2);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
 .ctrl:active{transform:translateY(0)}
-.ctrl.red{border-color:rgba(200,16,46,.5);color:#ff6b6b;background:rgba(200,16,46,.1)}
-.ctrl.red:hover{background:rgba(200,16,46,.2);border-color:#c8102e}
+.ctrl.red{border-color:rgba(200,16,46,.3);color:#c8102e;background:rgba(200,16,46,.05)}
+.ctrl.red:hover{background:rgba(200,16,46,.1);border-color:#c8102e}
 
 /* ── STEP PROGRESS ── */
 .step-track{
@@ -352,7 +347,7 @@ body{
 .step:hover{opacity:.8}
 .step-dot{
   width:10px;height:10px;border-radius:50%;
-  background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.2);
+  background:rgba(0,0,0,.15);border:2px solid rgba(0,0,0,.15);
   transition:all .4s cubic-bezier(.34,1.56,.64,1);
   position:relative;z-index:1;
 }
@@ -360,13 +355,13 @@ body{
 .step.active .step-dot{
   background:#c8102e;border-color:#fff;
   width:14px;height:14px;
-  box-shadow:0 0 12px rgba(200,16,46,.6);
+  box-shadow:0 0 12px rgba(200,16,46,.5);
 }
-.step-lbl{font-size:9px;color:rgba(255,255,255,.35);letter-spacing:.04em;text-transform:uppercase;text-align:center;transition:color .3s}
-.step.active .step-lbl{color:rgba(255,255,255,.9);font-weight:700}
+.step-lbl{font-size:9px;color:rgba(0,0,0,.35);letter-spacing:.04em;text-transform:uppercase;text-align:center;transition:color .3s}
+.step.active .step-lbl{color:#1a1a1a;font-weight:700}
 .step.done .step-lbl{color:rgba(200,16,46,.7)}
 .step-line{
-  height:2px;flex:1;background:rgba(255,255,255,.1);
+  height:2px;flex:1;background:rgba(0,0,0,.1);
   margin-bottom:14px;position:relative;overflow:hidden;
 }
 .step-line-fill{
@@ -394,12 +389,12 @@ body{
 
 <!-- Step progress -->
 <div class="step-track">
-  <div class="step done" id="sp-sec" onclick="go('sec')">
+  <div class="step active" id="sp-sec" onclick="go('sec')">
     <div class="step-dot"></div>
     <div class="step-lbl">Security</div>
   </div>
-  <div class="step-line"><div class="step-line-fill" id="sl1" style="width:100%"></div></div>
-  <div class="step active" id="sp-gate" onclick="go('gate')">
+  <div class="step-line"><div class="step-line-fill" id="sl1" style="width:0%"></div></div>
+  <div class="step" id="sp-gate" onclick="go('gate')">
     <div class="step-dot"></div>
     <div class="step-lbl">Gate</div>
   </div>
@@ -415,14 +410,14 @@ body{
   <!-- LEFT INFO CARD -->
   <div class="side side-left">
 
-    <div class="side-card" id="info-sec-1">
+    <div class="side-card active" id="info-sec-1">
       <div class="sc-icon">&#128274;</div>
       <div class="sc-title">TSA Checkpoint</div>
       <div class="sc-body">Present your <strong>QR code</strong> and government-issued ID to the agent.<br><br>TSA Pre&#10003; lane available.</div>
       <span class="sc-tag">Security stage</span>
     </div>
 
-    <div class="side-card active" id="info-gate-1">
+    <div class="side-card" id="info-gate-1">
       <div class="sc-icon">&#9992;</div>
       <div class="sc-title">Your Gate</div>
       <div class="sc-body">Proceed to <strong>Gate A18</strong> in the South Terminal.<br><br>Allow 10–15 min walk from security.</div>
@@ -453,13 +448,13 @@ body{
           <div class="appbar-menu">&#9776;</div>
         </div>
         <div class="tabs">
-          <div class="tab" id="t-sec" onclick="go('sec')">Security</div>
-          <div class="tab active" id="t-gate" onclick="go('gate')">Gate</div>
+          <div class="tab active" id="t-sec" onclick="go('sec')">Security</div>
+          <div class="tab" id="t-gate" onclick="go('gate')">Gate</div>
           <div class="tab" id="t-fl" onclick="go('fl')">In Flight</div>
         </div>
 
         <!-- SECURITY -->
-        <div class="card" id="c-sec" style="display:none">
+        <div class="card" id="c-sec" style="display:flex">
           <div class="sec-hdr">
             <div class="sec-name">Sujitha Rao</div>
             <div class="sec-meta">Flight DL 142 &middot; South Terminal</div>
@@ -503,7 +498,7 @@ body{
         </div>
 
         <!-- GATE -->
-        <div class="card" id="c-gate" style="display:flex">
+        <div class="card" id="c-gate" style="display:none">
           <div class="gate-body">
             <div class="alert" id="galert">
               <div class="adot"></div>
@@ -598,14 +593,14 @@ body{
   <!-- RIGHT INFO CARD -->
   <div class="side side-right">
 
-    <div class="side-card" id="info-sec-2">
+    <div class="side-card active" id="info-sec-2">
       <div class="sc-icon">&#128203;</div>
       <div class="sc-title">What you need</div>
       <div class="sc-body"><strong>QR code</strong> — show to agent<br><strong>Photo ID</strong> — passport or DL<br><br>Keep phone brightness up.</div>
       <span class="sc-tag">Security</span>
     </div>
 
-    <div class="side-card active" id="info-gate-2">
+    <div class="side-card" id="info-gate-2">
       <div class="sc-icon">&#9201;</div>
       <div class="sc-title">Boarding Status</div>
       <div class="sc-body">Boarding in <strong id="side-mins">22 min</strong><br>Zone <strong>4</strong> boards after zones 1–3.<br><br>Have QR ready at jetbridge.</div>
@@ -621,6 +616,86 @@ body{
 
   </div>
 
+  <!-- SIMULATION PANEL — lives as right column inside scene -->
+  <div class="side sim-col" id="sim-col" style="display:none">
+    <div class="sim-panel">
+      <div class="sim-panel-header">
+        <div class="sim-header-top">
+          <div class="sim-clock-wrap">
+            <div class="sim-clock-label">Current time</div>
+            <div class="sim-clock" id="sim-clock">—</div>
+          </div>
+          <div class="sim-timer-wrap">
+            <div class="sim-clock-label">Next in</div>
+            <div class="sim-countdown" id="sim-countdown">—</div>
+          </div>
+        </div>
+        <div>
+          <div class="sim-phase-label">What's happening</div>
+          <div class="sim-phase-txt" id="sim-phase-txt">Starting...</div>
+        </div>
+      </div>
+      <div class="sim-timeline">
+        <div class="sim-step" id="ss-0">
+          <div class="sim-step-dot"></div>
+          <div class="sim-step-info">
+            <div class="sim-step-time">9:00 AM</div>
+            <div class="sim-step-desc">Arrive at airport — heading to security</div>
+          </div>
+        </div>
+        <div class="sim-step" id="ss-1">
+          <div class="sim-step-dot"></div>
+          <div class="sim-step-info">
+            <div class="sim-step-time">9:08 AM</div>
+            <div class="sim-step-desc">At TSA — show QR code &amp; ID</div>
+          </div>
+        </div>
+        <div class="sim-step" id="ss-2">
+          <div class="sim-step-dot"></div>
+          <div class="sim-step-info">
+            <div class="sim-step-time">9:20 AM</div>
+            <div class="sim-step-desc">Security cleared — walking to Gate A18</div>
+          </div>
+        </div>
+        <div class="sim-step" id="ss-3">
+          <div class="sim-step-dot"></div>
+          <div class="sim-step-info">
+            <div class="sim-step-time">9:35 AM</div>
+            <div class="sim-step-desc">At the gate — boarding at 10:15 AM</div>
+          </div>
+        </div>
+        <div class="sim-step" id="ss-4">
+          <div class="sim-step-dot"></div>
+          <div class="sim-step-info">
+            <div class="sim-step-time">9:50 AM</div>
+            <div class="sim-step-desc">&#9888; Gate change! A18 → B22</div>
+          </div>
+        </div>
+        <div class="sim-step" id="ss-5">
+          <div class="sim-step-dot"></div>
+          <div class="sim-step-info">
+            <div class="sim-step-time">10:15 AM</div>
+            <div class="sim-step-desc">Zone 4 called — scan QR at jetbridge</div>
+          </div>
+        </div>
+        <div class="sim-step" id="ss-6">
+          <div class="sim-step-dot"></div>
+          <div class="sim-step-info">
+            <div class="sim-step-time">10:22 AM</div>
+            <div class="sim-step-desc">On board — seat 12A, Window, Row 12</div>
+          </div>
+        </div>
+        <div class="sim-step" id="ss-7">
+          <div class="sim-step-dot"></div>
+          <div class="sim-step-info">
+            <div class="sim-step-time">10:35 AM</div>
+            <div class="sim-step-desc">Settled — flight departs on time &#10003;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- CONTROLS -->
@@ -633,12 +708,82 @@ body{
   </div>
   <div class="ctrl-row">
     <div class="ctrl red" onclick="gateChange()">&#9888; Simulate gate change</div>
-    <div class="ctrl" onclick="resetGate()">&#8635; Reset</div>
+    <div class="ctrl" onclick="fullReset()">&#8635; Reset</div>
   </div>
+
+  <div class="sim-btn" id="sim-btn" onclick="toggleAirport()">
+    &#9992;&nbsp; Simulate Airport Experience
+  </div>
+  <div class="sim-status" id="sim-status"></div>
 </div>
 
+<style>
+.sim-btn{
+  width:100%;padding:12px;border-radius:12px;margin-top:4px;
+  background:linear-gradient(135deg,#c8102e,#8b0000);
+  color:#fff;font-size:12px;font-weight:700;letter-spacing:.05em;
+  text-align:center;cursor:pointer;
+  border:1px solid rgba(255,255,255,.15);
+  transition:all .2s;text-transform:uppercase;
+}
+.sim-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,16,46,.35)}
+.sim-btn:active{transform:translateY(0)}
+.sim-btn.running{background:linear-gradient(135deg,#444,#222);border-color:rgba(0,0,0,.2);}
+
+/* ── SIM COLUMN ── */
+.sim-col{width:220px;flex-shrink:0;}
+.sim-panel{
+  width:100%;background:#fff;border-radius:14px;
+  border:1px solid rgba(200,16,46,.2);
+  overflow:hidden;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+  animation:fadeUp .35s ease both;
+}
+.sim-panel-header{
+  display:flex;flex-direction:column;gap:6px;
+  background:#c8102e;padding:12px 14px;
+}
+.sim-header-top{display:flex;justify-content:space-between;align-items:flex-start}
+.sim-clock-wrap,.sim-timer-wrap{display:flex;flex-direction:column;gap:1px;}
+.sim-clock-label{font-size:9px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.sim-clock{font-size:20px;font-weight:800;color:#fff;letter-spacing:.01em;line-height:1}
+.sim-countdown{font-size:16px;font-weight:800;color:#ffcccc;line-height:1;text-align:right}
+.sim-timer-wrap{align-items:flex-end}
+.sim-phase-label{font-size:9px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:2px}
+.sim-phase-txt{font-size:11px;font-weight:600;color:#fff;line-height:1.4}
+
+/* ── TIMELINE ── */
+.sim-timeline{padding:10px 12px 12px;display:flex;flex-direction:column;gap:0}
+.sim-step{display:flex;align-items:flex-start;gap:8px;padding:5px 0;position:relative;}
+.sim-step::before{content:'';position:absolute;left:6px;top:18px;bottom:-5px;width:2px;background:#f0f0f0;}
+.sim-step:last-child::before{display:none}
+.sim-step-dot{
+  width:14px;height:14px;border-radius:50%;flex-shrink:0;margin-top:2px;
+  background:#e0e0e0;border:2px solid #ccc;
+  transition:all .4s cubic-bezier(.34,1.56,.64,1);position:relative;z-index:1;
+}
+.sim-step.active .sim-step-dot{
+  background:#c8102e;border-color:#c8102e;
+  box-shadow:0 0 0 3px rgba(200,16,46,.15);
+  width:16px;height:16px;margin-top:1px;
+}
+.sim-step.done .sim-step-dot{background:#c8102e;border-color:#c8102e;}
+.sim-step.done::before{background:#c8102e;}
+.sim-step-info{flex:1}
+.sim-step-time{font-size:9.5px;font-weight:700;color:#c8102e;letter-spacing:.02em;margin-bottom:1px;}
+.sim-step.done .sim-step-time{color:#aaa}
+.sim-step-desc{font-size:10.5px;color:#555;line-height:1.35}
+.sim-step.active .sim-step-desc{color:#111;font-weight:600}
+.sim-step.done .sim-step-desc{color:#bbb}
+
+.sim-status{
+  font-size:11px;color:#555;text-align:center;
+  letter-spacing:.03em;min-height:16px;transition:opacity .3s;font-weight:500;
+}
+</style>
+
 <script>
-var barVisible=true, mins=22, timer=null, currentCard='gate';
+var barVisible=true, mins=22, timer=null, currentCard='sec';
 
 var sideMap={
   sec:['info-sec-1','info-sec-2'],
@@ -716,22 +861,176 @@ function startTimer(){
   timer=setInterval(function(){
     if(mins>0){
       mins--;
-      var pct=Math.round(mins/40*100);
-      document.getElementById('bfill').style.width=pct+'%';
-      var txt=mins>0?'Boards in '+mins+' min':'Boarding now';
-      document.getElementById('btxt').textContent=txt;
-      document.getElementById('side-mins').textContent=mins>0?mins+' min':'now';
-      if(mins<=5){
-        document.getElementById('bfill').style.background='#8b0000';
-        document.getElementById('btxt').style.color='#8b0000';
-      }
+      updateBar();
     }else{
       clearInterval(timer);
     }
-  },8000);
+  },15000);
+}
+
+function updateBar(){
+  var pct=Math.round(mins/40*100);
+  document.getElementById('bfill').style.width=pct+'%';
+  var txt=mins>0?'Boards in '+mins+' min':'Boarding now';
+  document.getElementById('btxt').textContent=txt;
+  document.getElementById('side-mins').textContent=mins>0?mins+' min':'now';
+  if(mins<=5){
+    document.getElementById('bfill').style.background='#8b0000';
+    document.getElementById('btxt').style.color='#8b0000';
+  }
+}
+
+function snapBarToZero(){
+  clearInterval(timer);
+  mins=0;
+  document.getElementById('bfill').style.width='0%';
+  document.getElementById('bfill').style.background='#8b0000';
+  document.getElementById('btxt').textContent='Boarding now';
+  document.getElementById('btxt').style.color='#8b0000';
+  document.getElementById('side-mins').textContent='now';
+}
+
+function fullReset(){
+  /* stop any running sim */
+  if(airportSim||simCountdownInterval){
+    clearTimeout(airportSim);
+    clearInterval(simCountdownInterval);
+    airportSim=null;simCountdownInterval=null;simIdx=0;
+    document.getElementById('sim-btn').innerHTML='&#9992;&nbsp; Simulate Airport Experience';
+    document.getElementById('sim-btn').classList.remove('running');
+    document.getElementById('sim-col').style.display='none';
+    document.querySelector('.side-right').style.display='flex';
+    resetTimeline();
+  }
+  /* reset gate alert */
+  resetGate();
+  /* reset bar */
+  clearInterval(timer);timer=null;
+  mins=22;
+  document.getElementById('bfill').style.width='62%';
+  document.getElementById('bfill').style.background='#c8102e';
+  document.getElementById('btxt').textContent='Boards in 22 min';
+  document.getElementById('btxt').style.color='#c8102e';
+  document.getElementById('btxt').style.visibility='visible';
+  document.getElementById('btog').textContent='hide';
+  barVisible=true;
+  document.getElementById('side-mins').textContent='22 min';
+  /* reset countdown bar track */
+  document.getElementById('bfill').style.background='#c8102e';
+  /* go back to security */
+  go('sec');
+  document.getElementById('sim-status').textContent='';
 }
 
 startTimer();
+
+/* ── AIRPORT SIMULATION ── */
+var airportSim=null, simCountdownInterval=null, simIdx=0;
+
+var simPhases=[
+  {card:'sec', time:'9:00 AM', desc:'Arrive at airport — heading to security',   step:0, duration:5000},
+  {card:'sec', time:'9:08 AM', desc:'At TSA — show QR code & ID to agent',       step:1, duration:5000},
+  {card:'sec', time:'9:20 AM', desc:'Security cleared — walking to Gate A18',    step:2, duration:5000},
+  {card:'gate',time:'9:35 AM', desc:'At Gate A18 — boarding opens at 10:15 AM', step:3, duration:5000},
+  {card:'gate',time:'9:50 AM', desc:'Gate change alert! A18 → B22',              step:4, duration:5000, gateChange:true},
+  {card:'gate',time:'10:15 AM',desc:'Zone 4 called — scan QR at jetbridge',      step:5, duration:5000, boardingNow:true},
+  {card:'fl',  time:'10:22 AM',desc:'On board — seat 12A, Window, Row 12',       step:6, duration:5000},
+  {card:'fl',  time:'10:35 AM',desc:'Settled in seat — flight departs on time',  step:7, duration:4000},
+];
+
+function toggleAirport(){
+  if(airportSim){ stopSim(); } else { startSim(); }
+}
+
+function startSim(){
+  simIdx=0;
+  fullReset();
+  document.getElementById('sim-btn').innerHTML='&#9632;&nbsp; Stop Simulation';
+  document.getElementById('sim-btn').classList.add('running');
+  document.getElementById('sim-col').style.display='flex';
+  document.querySelector('.side-right').style.display='none';
+  document.getElementById('sim-status').textContent='';
+  resetTimeline();
+  runSimPhase();
+}
+
+function stopSim(){
+  clearTimeout(airportSim);
+  clearInterval(simCountdownInterval);
+  airportSim=null;simCountdownInterval=null;simIdx=0;
+  document.getElementById('sim-btn').innerHTML='&#9992;&nbsp; Simulate Airport Experience';
+  document.getElementById('sim-btn').classList.remove('running');
+  document.getElementById('sim-col').style.display='none';
+  document.querySelector('.side-right').style.display='flex';
+  document.getElementById('sim-status').textContent='';
+  fullReset();
+}
+
+function resetTimeline(){
+  for(var i=0;i<simPhases.length;i++){
+    document.getElementById('ss-'+i).className='sim-step';
+  }
+  document.getElementById('sim-clock').textContent='—';
+  document.getElementById('sim-phase-txt').textContent='Press play to begin';
+  document.getElementById('sim-countdown').textContent='—';
+}
+
+function runSimPhase(){
+  if(simIdx>=simPhases.length){
+    clearInterval(simCountdownInterval);
+    airportSim=null;
+    document.getElementById('sim-countdown').textContent='Done';
+    document.getElementById('sim-phase-txt').textContent='Journey complete!';
+    document.getElementById('sim-status').textContent='Simulation complete — resetting in 3 seconds...';
+    setTimeout(function(){
+      document.getElementById('sim-btn').innerHTML='&#9992;&nbsp; Simulate Airport Experience';
+      document.getElementById('sim-btn').classList.remove('running');
+      document.getElementById('sim-status').textContent='';
+      document.getElementById('sim-col').style.display='none';
+      document.querySelector('.side-right').style.display='flex';
+      fullReset();
+    }, 3000);
+    return;
+  }
+
+  var phase=simPhases[simIdx];
+
+  document.getElementById('sim-clock').textContent=phase.time;
+  document.getElementById('sim-phase-txt').textContent=phase.desc;
+
+  for(var i=0;i<simPhases.length;i++){
+    var el=document.getElementById('ss-'+simPhases[i].step);
+    if(i<simIdx) el.className='sim-step done';
+    else if(i===simIdx) el.className='sim-step active';
+    else el.className='sim-step';
+  }
+
+  var activeStep=document.getElementById('ss-'+phase.step);
+  if(activeStep) activeStep.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  if(phase.gateChange) setTimeout(gateChange, 1000);
+
+  /* snap bar to 0 when boarding is called */
+  if(phase.boardingNow) setTimeout(snapBarToZero, 800);
+
+  go(phase.card);
+
+  clearInterval(simCountdownInterval);
+  var secsLeft=Math.round(phase.duration/1000);
+  document.getElementById('sim-countdown').textContent=secsLeft+'s';
+  simCountdownInterval=setInterval(function(){
+    secsLeft--;
+    if(secsLeft<=0){
+      clearInterval(simCountdownInterval);
+      document.getElementById('sim-countdown').textContent='\u2192';
+    } else {
+      document.getElementById('sim-countdown').textContent=secsLeft+'s';
+    }
+  },1000);
+
+  simIdx++;
+  airportSim=setTimeout(runSimPhase, phase.duration);
+}
 </script>
 </body>
 </html>
