@@ -9,22 +9,53 @@
 :root{--red:#c8102e;--darkred:#8b0000;--navy:#003087}
 
 /* ── INTRO ── */
-.intro-overlay{position:fixed;inset:0;z-index:1000;background:linear-gradient(135deg,#1a0510 0%,#0a0a1e 60%,#1a0518 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;animation:overlayFade 0.5s ease 2.8s both forwards}
+.intro-overlay{
+  position:fixed;inset:0;z-index:1000;
+  background:linear-gradient(135deg,#fdf0f2 0%,#f0f4fd 50%,#f5f0fd 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+  animation:overlayFade 0.6s ease 3s both forwards;
+}
 @keyframes overlayFade{to{opacity:0;pointer-events:none}}
-.intro-plane{font-size:52px;animation:introFly 2.4s cubic-bezier(.4,0,.2,1) both;filter:drop-shadow(0 0 20px rgba(200,16,46,.6))}
-@keyframes introFly{0%{transform:translateX(-120vw) translateY(40px) rotate(-5deg);opacity:0}20%{opacity:1}60%{transform:translateX(0) translateY(0) rotate(0)}80%{transform:translateX(0) translateY(-6px) rotate(2deg)}100%{transform:translateX(0) translateY(0) rotate(0)}}
-.intro-trail{display:flex;gap:6px;animation:trailIn .6s ease 1.2s both}
+
+.intro-plane-wrap{
+  animation:introFly 2.5s cubic-bezier(.4,0,.2,1) both;
+  filter:drop-shadow(0 6px 24px rgba(200,16,46,.25));
+}
+@keyframes introFly{
+  0%{transform:translateX(-110vw) translateY(30px) rotate(-6deg);opacity:0}
+  15%{opacity:1}
+  58%{transform:translateX(0) translateY(0) rotate(0deg)}
+  72%{transform:translateX(0) translateY(-8px) rotate(2deg)}
+  86%{transform:translateX(0) translateY(3px) rotate(-1deg)}
+  100%{transform:translateX(0) translateY(0) rotate(0deg)}
+}
+.intro-trail{
+  display:flex;gap:8px;align-items:center;
+  animation:trailIn .7s ease 1.3s both;
+  transform-origin:left center;
+}
 @keyframes trailIn{from{opacity:0;transform:scaleX(0)}to{opacity:1;transform:scaleX(1)}}
-.intro-trail span{display:block;height:3px;border-radius:2px;background:rgba(200,16,46,.5)}
-.intro-text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:13px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.2em;text-transform:uppercase;animation:textFade .5s ease 1.6s both}
+.intro-trail span{display:block;height:3px;border-radius:2px;background:var(--red);opacity:.35}
+.intro-title{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:11px;font-weight:800;color:#888;
+  letter-spacing:.22em;text-transform:uppercase;
+  animation:textFade .5s ease 1.7s both;
+}
+.intro-sub{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:22px;font-weight:800;color:var(--red);
+  letter-spacing:-.02em;
+  animation:textFade .5s ease 1.9s both;
+}
 @keyframes textFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── FLY ACROSS ── */
-.plane-bar{position:fixed;top:0;left:0;width:100%;height:44px;pointer-events:none;z-index:500;overflow:hidden}
-.fly-plane{position:absolute;top:6px;left:-80px;font-size:28px;opacity:0}
+.plane-bar{position:fixed;top:0;left:0;width:100%;height:50px;pointer-events:none;z-index:500;overflow:hidden}
+.fly-plane{position:absolute;top:4px;left:-100px;width:80px;opacity:0}
 .fly-plane.go{animation:flyAcross 2s cubic-bezier(.4,0,.6,1) forwards}
-@keyframes flyAcross{0%{left:-80px;opacity:0;transform:scale(.8)}10%{opacity:1;transform:scale(1)}88%{opacity:1}100%{left:calc(100% + 80px);opacity:0}}
-.contrail-bar{position:fixed;top:0;left:0;width:100%;height:44px;pointer-events:none;z-index:499;overflow:hidden}
+@keyframes flyAcross{0%{left:-100px;opacity:0;transform:scale(.8)}10%{opacity:1;transform:scale(1)}88%{opacity:1}100%{left:calc(100% + 100px);opacity:0}}
+.contrail-bar{position:fixed;top:0;left:0;width:100%;height:50px;pointer-events:none;z-index:499;overflow:hidden}
 
 /* ── BASE ── */
 html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#f5e6e8 0%,#e8eef5 50%,#f0e8f5 100%);min-height:100vh}
@@ -238,14 +269,65 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
 <body>
 
 <div class="intro-overlay" id="intro">
-  <div class="intro-plane">✈</div>
-  <div class="intro-trail">
-    <span style="width:40px"></span><span style="width:28px"></span><span style="width:18px"></span><span style="width:10px"></span>
+  <div class="intro-trail" style="margin-bottom:4px">
+    <span style="width:44px"></span><span style="width:30px"></span><span style="width:18px"></span><span style="width:10px"></span>
   </div>
-  <div class="intro-text">Boarding Pass — Reimagined</div>
+  <div class="intro-plane-wrap">
+    <!-- Delta-style airplane SVG -->
+    <svg width="160" height="60" viewBox="0 0 160 60" xmlns="http://www.w3.org/2000/svg">
+      <!-- fuselage -->
+      <ellipse cx="80" cy="30" rx="68" ry="10" fill="#c8102e"/>
+      <!-- nose cone -->
+      <ellipse cx="146" cy="30" rx="12" ry="7" fill="#a00820"/>
+      <!-- cockpit windows -->
+      <ellipse cx="138" cy="27" rx="5" ry="3.5" fill="#fff" opacity=".7"/>
+      <ellipse cx="130" cy="27" rx="4" ry="3" fill="#fff" opacity=".5"/>
+      <!-- main wing -->
+      <polygon points="85,30 55,30 30,52 65,38" fill="#a00820"/>
+      <polygon points="85,30 55,30 30,8 65,22" fill="#c8102e"/>
+      <!-- wing stripe -->
+      <polygon points="85,30 60,30 40,48 68,37" fill="#e8102e" opacity=".4"/>
+      <!-- tail fin vertical -->
+      <polygon points="16,30 28,30 22,12" fill="#a00820"/>
+      <!-- tail fin horizontal left -->
+      <polygon points="16,30 28,32 14,44" fill="#c8102e"/>
+      <!-- tail fin horizontal right -->
+      <polygon points="16,28 28,28 14,16" fill="#c8102e"/>
+      <!-- engine pod 1 -->
+      <ellipse cx="68" cy="42" rx="12" ry="5" fill="#7a0020"/>
+      <ellipse cx="56" cy="42" rx="6" ry="5" fill="#5a0018"/>
+      <!-- engine pod 2 -->
+      <ellipse cx="72" cy="18" rx="11" ry="4.5" fill="#7a0020"/>
+      <ellipse cx="61" cy="18" rx="5.5" ry="4.5" fill="#5a0018"/>
+      <!-- fuselage stripe -->
+      <rect x="20" y="27" width="110" height="2" rx="1" fill="#fff" opacity=".25"/>
+      <!-- DELTA lettering on fuselage -->
+      <text x="60" y="34" font-family="Arial,sans-serif" font-size="9" font-weight="800" fill="#fff" letter-spacing="2" opacity=".9">DELTA</text>
+    </svg>
+  </div>
+  <div>
+    <div class="intro-title">Delta Air Lines</div>
+    <div class="intro-sub">Three-Card Boarding Pass</div>
+  </div>
 </div>
 
-<div class="plane-bar"><div class="fly-plane" id="fly-plane">✈</div></div>
+<div class="plane-bar">
+  <div class="fly-plane" id="fly-plane">
+    <svg viewBox="0 0 160 60" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="80" cy="30" rx="68" ry="10" fill="#c8102e"/>
+      <ellipse cx="146" cy="30" rx="12" ry="7" fill="#a00820"/>
+      <ellipse cx="138" cy="27" rx="5" ry="3.5" fill="#fff" opacity=".7"/>
+      <polygon points="85,30 55,30 30,52 65,38" fill="#a00820"/>
+      <polygon points="85,30 55,30 30,8 65,22" fill="#c8102e"/>
+      <polygon points="16,30 28,30 22,12" fill="#a00820"/>
+      <polygon points="16,30 28,32 14,44" fill="#c8102e"/>
+      <polygon points="16,28 28,28 14,16" fill="#c8102e"/>
+      <ellipse cx="68" cy="42" rx="12" ry="5" fill="#7a0020"/>
+      <ellipse cx="56" cy="42" rx="6" ry="5" fill="#5a0018"/>
+      <rect x="20" y="27" width="110" height="2" rx="1" fill="#fff" opacity=".3"/>
+    </svg>
+  </div>
+</div>
 <div class="contrail-bar" id="contrail-bar"></div>
 
 <div class="page">
@@ -429,13 +511,33 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
   </div>
 
   <!-- MOBILE CONTROLS -->
-  <div class="mobile-controls">
-    <div class="ctrl" onclick="go('sec')">🔒 Security</div>
-    <div class="ctrl" onclick="go('gate')">✈ Gate</div>
-    <div class="ctrl" onclick="go('fl')">🏛 In Flight</div>
-    <div class="ctrl red" onclick="gateChange()">⚠ Gate</div>
-    <div class="ctrl" onclick="fullReset()">↺ Reset</div>
-    <div class="ctrl sim" id="sim-btn-m" onclick="toggleAirport()">✈ Simulate</div>
+  <div class="mobile-controls" id="mobile-controls">
+    <!-- Mobile sim panel lives here, above the buttons, only shown during sim -->
+    <div class="mobile-sim-panel" id="mobile-sim-panel" style="display:none">
+      <div class="msim-hdr">
+        <div class="msim-time-wrap">
+          <div class="msim-lbl">Time</div>
+          <div class="msim-clock" id="msim-clock">—</div>
+        </div>
+        <div class="msim-phase-wrap">
+          <div class="msim-lbl">What's happening</div>
+          <div class="msim-phase" id="msim-phase">—</div>
+        </div>
+        <div class="msim-cd-wrap">
+          <div class="msim-lbl">Next</div>
+          <div class="msim-cd" id="msim-cd">—</div>
+        </div>
+      </div>
+    </div>
+    <!-- Buttons row -->
+    <div class="mobile-btns">
+      <div class="ctrl" onclick="go('sec')">🔒 Security</div>
+      <div class="ctrl" onclick="go('gate')">✈ Gate</div>
+      <div class="ctrl" onclick="go('fl')">🏛 In Flight</div>
+      <div class="ctrl red" onclick="gateChange()">⚠ Gate</div>
+      <div class="ctrl" onclick="fullReset()">↺ Reset</div>
+      <div class="ctrl sim" id="sim-btn-m" onclick="toggleAirport()">✈ Simulate</div>
+    </div>
   </div>
 
 </div>
@@ -593,7 +695,7 @@ function runSimPhase(){
   simCdInterval=setInterval(function(){secs--;document.getElementById('sim-countdown').textContent=secs>0?secs+'s':'→';if(secs<=0)clearInterval(simCdInterval);},1000);
   simIdx++;airportSim=setTimeout(runSimPhase,ph.duration);
 }
-setTimeout(function(){var o=document.getElementById('intro');if(o)o.style.display='none';},3400);
+setTimeout(function(){var o=document.getElementById('intro');if(o)o.style.display='none';},3700);
 startTimer();
 </script>
 </body>
