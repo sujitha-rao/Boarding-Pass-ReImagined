@@ -57,6 +57,11 @@
 @keyframes flyAcross{0%{left:-100px;opacity:0;transform:scale(.8)}10%{opacity:1;transform:scale(1)}88%{opacity:1}100%{left:calc(100% + 100px);opacity:0}}
 .contrail-bar{position:fixed;top:0;left:0;width:100%;height:50px;pointer-events:none;z-index:499;overflow:hidden}
 
+/* ── GLOBAL: mobile sim overlay hidden until sim starts ── */
+.mobile-sim-overlay{display:none!important}
+.mobile-sim-overlay.show{display:block!important;animation:slideUp .3s ease both}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
 /* ── BASE ── */
 html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#f5e6e8 0%,#e8eef5 50%,#f0e8f5 100%);min-height:100vh}
 
@@ -100,7 +105,6 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
     pointer-events:none;
   }
   .mobile-sim-overlay.show{display:block;animation:slideUp .3s ease both}
-  @keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
   .msim-card{
     background:rgba(200,16,46,.82);
     backdrop-filter:blur(14px);
@@ -560,7 +564,7 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
     <div class="sim-status-txt" id="sim-status-d"></div>
   </div>
 
-  <!-- MOBILE SIM OVERLAY — translucent, floats above phone UI -->
+  <!-- MOBILE SIM OVERLAY — translucent, floats above phone UI, hidden until sim starts -->
   <div class="mobile-sim-overlay" id="mobile-sim-overlay">
     <div class="msim-card">
       <div class="msim-hdr">
@@ -727,6 +731,8 @@ function resetTimeline(){
   document.getElementById('sim-phase').textContent='Press play to begin';
   document.getElementById('sim-countdown').textContent='—';
   var tl=document.getElementById('sim-tl');if(tl)tl.scrollLeft=0;
+  var ov=document.getElementById('mobile-sim-overlay');
+  if(ov)ov.className='mobile-sim-overlay';
 }
 function runSimPhase(){
   if(simIdx>=simPhases.length){
