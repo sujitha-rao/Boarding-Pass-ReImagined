@@ -57,9 +57,8 @@
 @keyframes flyAcross{0%{left:-100px;opacity:0;transform:scale(.8)}10%{opacity:1;transform:scale(1)}88%{opacity:1}100%{left:calc(100% + 100px);opacity:0}}
 .contrail-bar{position:fixed;top:0;left:0;width:100%;height:50px;pointer-events:none;z-index:499;overflow:hidden}
 
-/* ── GLOBAL: mobile sim overlay hidden until sim starts ── */
-.mobile-sim-overlay{display:none!important}
-.mobile-sim-overlay.show{display:block!important}
+/* ── mobile sim strip: hidden until simulation runs ── */
+.mobile-sim-strip{display:none}
 
 /* ── BASE ── */
 html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#f5e6e8 0%,#e8eef5 50%,#f0e8f5 100%);min-height:100vh}
@@ -83,7 +82,7 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
 
 /* ═══════════════ MOBILE <900px ═══════════════ */
 @media(max-width:899px){
-  .page{min-height:100vh;display:flex;flex-direction:column;padding:0 0 72px}
+  .page{min-height:100vh;display:flex;flex-direction:column;padding:0 0 130px}
   .topbar{display:none}
   .mobile-header{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border-bottom:1px solid rgba(200,16,46,.1);padding:10px 16px 8px;display:flex;align-items:center;justify-content:space-between;animation:fadeDown .4s ease both}
   .mh-title{font-size:13px;font-weight:800;color:#111;letter-spacing:.06em;text-transform:uppercase}
@@ -93,48 +92,36 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
   .sim-wrap{display:none}
   .controls{display:none}
 
-  /* translucent overlay — floats over the phone during simulation */
-  .mobile-sim-overlay{
-    display:none;
-    position:fixed;
-    bottom:72px;
-    left:0;right:0;
-    z-index:250;
-    padding:0 10px 4px;
-    pointer-events:none;
-  }
-  .mobile-sim-overlay.show{display:block!important;animation:slideUp .3s ease both}
-  @keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-  .msim-card{
-    background:rgba(180,8,28,.88);
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-    border-radius:10px;
-    padding:7px 12px;
-    border:1px solid rgba(255,255,255,.15);
-    box-shadow:0 2px 16px rgba(200,16,46,.3);
-  }
-  .msim-hdr{display:flex;align-items:center;gap:0}
-  .msim-time-wrap{min-width:60px;flex-shrink:0}
-  .msim-phase-wrap{flex:1;padding:0 8px}
-  .msim-cd-wrap{min-width:32px;text-align:right;flex-shrink:0}
-  .msim-lbl{font-size:7px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:1px}
-  .msim-clock{font-size:13px;font-weight:800;color:#fff;line-height:1.1}
-  .msim-phase{font-size:10.5px;font-weight:600;color:#fff;line-height:1.3}
-  .msim-cd{font-size:11px;font-weight:800;color:#ffcccc;line-height:1.1}
-
-  /* bottom control bar — always 2 rows of 3 */
+  /* bottom control bar — always fixed, sim strip expands it upward */
   .mobile-controls{
     position:fixed;bottom:0;left:0;right:0;z-index:300;
-    background:rgba(255,255,255,.97);
-    backdrop-filter:blur(12px);
-    border-top:1px solid rgba(200,16,46,.1);
-    padding:7px 10px 10px;
+    background:#fff;
+    border-top:2px solid var(--red);
+    box-shadow:0 -2px 12px rgba(200,16,46,.1);
   }
+
+  /* sim strip — sits above the buttons inside the bar */
+  .mobile-sim-strip{
+    background:var(--red);
+    padding:7px 12px;
+    animation:slideUp .25s ease both;
+  }
+  @keyframes slideUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  .msim-hdr{display:flex;align-items:center;gap:0}
+  .msim-time-wrap{min-width:58px;flex-shrink:0}
+  .msim-phase-wrap{flex:1;padding:0 8px}
+  .msim-cd-wrap{min-width:34px;text-align:right;flex-shrink:0}
+  .msim-lbl{font-size:7.5px;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:1px}
+  .msim-clock{font-size:14px;font-weight:800;color:#fff;line-height:1.1}
+  .msim-phase{font-size:11px;font-weight:600;color:#fff;line-height:1.35}
+  .msim-cd{font-size:12px;font-weight:800;color:#ffcccc;line-height:1.1}
+
+  /* buttons grid */
   .mobile-btns{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:5px;
+    padding:7px 10px 10px;
   }
   .mobile-btns .ctrl{
     font-size:9.5px;
@@ -572,9 +559,10 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
     <div class="sim-status-txt" id="sim-status-d"></div>
   </div>
 
-  <!-- MOBILE SIM OVERLAY — translucent, floats above phone UI, hidden until sim starts -->
-  <div class="mobile-sim-overlay" id="mobile-sim-overlay">
-    <div class="msim-card">
+  <!-- MOBILE CONTROLS — sim strip + 3×2 button grid, all fixed to bottom -->
+  <div class="mobile-controls" id="mobile-controls">
+    <!-- Sim info strip: hidden until simulation runs -->
+    <div class="mobile-sim-strip" id="mobile-sim-strip" style="display:none">
       <div class="msim-hdr">
         <div class="msim-time-wrap">
           <div class="msim-lbl">Time</div>
@@ -590,10 +578,7 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- MOBILE CONTROLS — always 3×2 grid -->
-  <div class="mobile-controls" id="mobile-controls">
+    <!-- Buttons -->
     <div class="mobile-btns">
       <div class="ctrl" onclick="go('sec')">🔒<br>Security</div>
       <div class="ctrl" onclick="go('gate')">✈<br>Gate</div>
@@ -702,8 +687,8 @@ function flyPlane(){
 function setStatus(t){var s=document.getElementById('sim-status-d');if(s)s.textContent=t;}
 function setSim(on){
   document.getElementById('sim-wrap').style.display=on?'block':'none';
-  var ov=document.getElementById('mobile-sim-overlay');
-  if(ov)ov.className='mobile-sim-overlay'+(on?' show':'');
+  var strip=document.getElementById('mobile-sim-strip');
+  if(strip)strip.style.display=on?'block':'none';
   ['sim-btn-d','sim-btn-m'].forEach(function(id){
     var b=document.getElementById(id);if(!b)return;
     b.innerHTML=on?'&#9632;<br>Stop':'&#9992;<br>Simulate';
@@ -739,8 +724,8 @@ function resetTimeline(){
   document.getElementById('sim-phase').textContent='Press play to begin';
   document.getElementById('sim-countdown').textContent='—';
   var tl=document.getElementById('sim-tl');if(tl)tl.scrollLeft=0;
-  var ov=document.getElementById('mobile-sim-overlay');
-  if(ov)ov.className='mobile-sim-overlay';
+  var strip=document.getElementById('mobile-sim-strip');
+  if(strip)strip.style.display='none';
 }
 function runSimPhase(){
   if(simIdx>=simPhases.length){
