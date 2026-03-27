@@ -87,8 +87,22 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
   .main{display:flex;flex-direction:column;align-items:center;padding:16px 16px 0;gap:16px}
   .panel-left,.panel-right{display:none}
   .sim-wrap{display:none;padding:0 16px 16px}
+  /* mobile uses inline panel inside mobile-controls, not sim-wrap */
   .controls{display:none}
-  .mobile-controls{position:fixed;bottom:0;left:0;right:0;z-index:300;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:1px solid rgba(200,16,46,.1);padding:8px 12px 10px;display:flex;gap:5px;flex-wrap:wrap;align-items:center;justify-content:center}
+  .mobile-controls{position:fixed;bottom:0;left:0;right:0;z-index:300;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-top:1px solid rgba(200,16,46,.1);display:flex;flex-direction:column}
+  .mobile-btns{display:flex;gap:5px;flex-wrap:wrap;align-items:center;justify-content:center;padding:8px 12px 10px}
+
+  /* mobile sim panel strip */
+  .mobile-sim-panel{width:100%;background:var(--red);padding:8px 14px;animation:slideUp .25s ease both}
+  @keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .msim-hdr{display:flex;align-items:center;gap:0}
+  .msim-time-wrap{min-width:68px}
+  .msim-phase-wrap{flex:1;padding:0 10px}
+  .msim-cd-wrap{min-width:40px;text-align:right}
+  .msim-lbl{font-size:7.5px;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:1px}
+  .msim-clock{font-size:15px;font-weight:800;color:#fff;line-height:1}
+  .msim-phase{font-size:10px;font-weight:600;color:#fff;line-height:1.35}
+  .msim-cd{font-size:13px;font-weight:800;color:#ffcccc;line-height:1}
 }
 
 /* ── STEP TRACKER (shared) ── */
@@ -638,11 +652,17 @@ function flyPlane(){
 function setStatus(t){var s=document.getElementById('sim-status-d');if(s)s.textContent=t;}
 function setSim(on){
   document.getElementById('sim-wrap').style.display=on?'block':'none';
+  var mp=document.getElementById('mobile-sim-panel');if(mp)mp.style.display=on?'block':'none';
   ['sim-btn-d','sim-btn-m'].forEach(function(id){
     var b=document.getElementById(id);if(!b)return;
-    b.innerHTML=on?'■ Stop Simulation':'✈ Simulate Airport Experience';
+    b.innerHTML=on?'&#9632; Stop':'&#9992; Simulate';
     b.classList.toggle('running',on);
   });
+}
+function setMobilePhase(time,desc,cd){
+  var mc=document.getElementById('msim-clock');if(mc)mc.textContent=time;
+  var mp=document.getElementById('msim-phase');if(mp)mp.textContent=desc;
+  var mcd=document.getElementById('msim-cd');if(mcd)mcd.textContent=cd;
 }
 function fullReset(){
   if(airportSim){clearTimeout(airportSim);airportSim=null;}
@@ -674,12 +694,14 @@ function runSimPhase(){
     clearInterval(simCdInterval);airportSim=null;
     document.getElementById('sim-countdown').textContent='Done';
     document.getElementById('sim-phase').textContent='Journey complete!';
+    setMobilePhase('Done','Journey complete!','✓');
     setStatus('Resetting in 3s...');
     setTimeout(function(){fullReset();},3000);return;
   }
   var ph=simPhases[simIdx];
   document.getElementById('sim-clock').textContent=ph.time;
   document.getElementById('sim-phase').textContent=ph.desc;
+  setMobilePhase(ph.time,ph.desc,'—');
   for(var i=0;i<simPhases.length;i++){
     document.getElementById('ss-'+simPhases[i].step).className='ss'+(i<simIdx?' done':i===simIdx?' active':'');
   }
@@ -692,7 +714,14 @@ function runSimPhase(){
   clearInterval(simCdInterval);
   var secs=Math.round(ph.duration/1000);
   document.getElementById('sim-countdown').textContent=secs+'s';
-  simCdInterval=setInterval(function(){secs--;document.getElementById('sim-countdown').textContent=secs>0?secs+'s':'→';if(secs<=0)clearInterval(simCdInterval);},1000);
+  setMobilePhase(ph.time,ph.desc,secs+'s');
+  simCdInterval=setInterval(function(){
+    secs--;
+    var cdTxt=secs>0?secs+'s':'→';
+    document.getElementById('sim-countdown').textContent=cdTxt;
+    var mcd=document.getElementById('msim-cd');if(mcd)mcd.textContent=cdTxt;
+    if(secs<=0)clearInterval(simCdInterval);
+  },1000);
   simIdx++;airportSim=setTimeout(runSimPhase,ph.duration);
 }
 setTimeout(function(){var o=document.getElementById('intro');if(o)o.style.display='none';},3700);
