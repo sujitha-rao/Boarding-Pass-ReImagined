@@ -59,8 +59,7 @@
 
 /* ── GLOBAL: mobile sim overlay hidden until sim starts ── */
 .mobile-sim-overlay{display:none!important}
-.mobile-sim-overlay.show{display:block!important;animation:slideUp .3s ease both}
-@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.mobile-sim-overlay.show{display:block!important}
 
 /* ── BASE ── */
 html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#f5e6e8 0%,#e8eef5 50%,#f0e8f5 100%);min-height:100vh}
@@ -73,7 +72,7 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
   .tb-left h1{font-size:14px;font-weight:800;color:#111;letter-spacing:.07em;text-transform:uppercase}
   .tb-left p{font-size:11px;color:#555;font-weight:500;margin-top:1px}
   .main{display:grid;grid-template-columns:188px 1fr 188px;gap:12px;padding:10px 0 4px;min-height:0;overflow:hidden}
-  .sim-wrap{display:none;padding:8px 0 2px;max-width:100%}
+  .sim-wrap{display:none;padding:6px 0 0;max-width:100%}
   .controls{display:flex;align-items:center;gap:8px;flex-wrap:nowrap;padding-top:8px;border-top:1px solid rgba(200,16,46,.1);animation:fadeUp .5s ease .2s both}
   .ctrl-lbl{font-size:9px;color:#666;letter-spacing:.05em;text-transform:uppercase;font-weight:600;white-space:nowrap}
   .ctrl-grp{display:flex;gap:5px}
@@ -101,27 +100,28 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
     bottom:72px;
     left:0;right:0;
     z-index:250;
-    padding:0 16px;
+    padding:0 10px 4px;
     pointer-events:none;
   }
-  .mobile-sim-overlay.show{display:block;animation:slideUp .3s ease both}
+  .mobile-sim-overlay.show{display:block!important;animation:slideUp .3s ease both}
+  @keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
   .msim-card{
-    background:rgba(200,16,46,.82);
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
-    border-radius:14px;
-    padding:10px 14px;
-    border:1px solid rgba(255,255,255,.18);
-    box-shadow:0 4px 24px rgba(200,16,46,.25);
+    background:rgba(180,8,28,.88);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-radius:10px;
+    padding:7px 12px;
+    border:1px solid rgba(255,255,255,.15);
+    box-shadow:0 2px 16px rgba(200,16,46,.3);
   }
   .msim-hdr{display:flex;align-items:center;gap:0}
-  .msim-time-wrap{min-width:64px;flex-shrink:0}
-  .msim-phase-wrap{flex:1;padding:0 10px}
-  .msim-cd-wrap{min-width:36px;text-align:right;flex-shrink:0}
+  .msim-time-wrap{min-width:60px;flex-shrink:0}
+  .msim-phase-wrap{flex:1;padding:0 8px}
+  .msim-cd-wrap{min-width:32px;text-align:right;flex-shrink:0}
   .msim-lbl{font-size:7px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:1px}
-  .msim-clock{font-size:14px;font-weight:800;color:#fff;line-height:1}
-  .msim-phase{font-size:10px;font-weight:600;color:#fff;line-height:1.35}
-  .msim-cd{font-size:12px;font-weight:800;color:#ffcccc;line-height:1}
+  .msim-clock{font-size:13px;font-weight:800;color:#fff;line-height:1.1}
+  .msim-phase{font-size:10.5px;font-weight:600;color:#fff;line-height:1.3}
+  .msim-cd{font-size:11px;font-weight:800;color:#ffcccc;line-height:1.1}
 
   /* bottom control bar — always 2 rows of 3 */
   .mobile-controls{
@@ -290,31 +290,39 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
 
 /* ── SIM PANEL — horizontal timeline ── */
 .sim-wrap{display:none;width:100%;animation:fadeUp .3s ease both}
-.sim-panel{background:#fff;border-radius:14px;border:1px solid rgba(200,16,46,.18);overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.07)}
-.sim-hdr{background:var(--red);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.sh-left,.sh-right{display:flex;flex-direction:column;gap:1px}
-.sh-left{min-width:72px}
-.sh-right{text-align:right;min-width:48px}
-.sh-mid{flex:1}
-.sim-lbl{font-size:8px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
-.sim-clock{font-size:18px;font-weight:800;color:#fff;line-height:1}
-.sim-countdown{font-size:15px;font-weight:800;color:#ffcccc;line-height:1}
-.sim-phase{font-size:10px;font-weight:600;color:#fff;line-height:1.4}
-.sim-tl{display:flex;overflow-x:auto;padding:12px 14px 10px;gap:0;scrollbar-width:none}
+.sim-panel{
+  background:var(--red);border-radius:10px;overflow:hidden;
+  border:none;
+  box-shadow:0 2px 12px rgba(200,16,46,.2);
+}
+.sim-hdr{
+  padding:8px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.sh-left,.sh-right{display:flex;flex-direction:column;gap:1px;flex-shrink:0}
+.sh-left{min-width:68px}
+.sh-right{text-align:right;min-width:44px}
+.sh-mid{flex:1;padding:0 8px}
+.sim-lbl{font-size:9px;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:1px}
+.sim-clock{font-size:15px;font-weight:800;color:#fff;line-height:1.1}
+.sim-countdown{font-size:13px;font-weight:800;color:#ffcccc;line-height:1.1}
+.sim-phase{font-size:11px;font-weight:600;color:#fff;line-height:1.35}
+.sim-tl{display:flex;overflow-x:auto;padding:8px 12px 8px;gap:0;scrollbar-width:none;background:rgba(0,0,0,.1)}
 .sim-tl::-webkit-scrollbar{display:none}
-.ss{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;width:88px;position:relative}
-.ss::after{content:'';position:absolute;top:7px;left:50%;right:-50%;height:2px;background:#f0f0f0;z-index:0}
+.ss{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;width:82px;position:relative}
+.ss::after{content:'';position:absolute;top:6px;left:50%;right:-50%;height:2px;background:rgba(255,255,255,.2);z-index:0}
 .ss:last-child::after{display:none}
-.ss.done::after{background:var(--red)}
-.ss-dot{width:15px;height:15px;border-radius:50%;background:#e8e8e8;border:2px solid #d0d0d0;transition:all .4s cubic-bezier(.34,1.56,.64,1);position:relative;z-index:1;flex-shrink:0}
-.ss.done .ss-dot{background:var(--red);border-color:var(--red)}
-.ss.active .ss-dot{background:var(--red);border-color:var(--red);width:17px;height:17px;box-shadow:0 0 0 4px rgba(200,16,46,.15)}
-.ss-info{margin-top:6px;text-align:center;padding:0 2px}
-.ss-time{font-size:8.5px;font-weight:700;color:var(--red);margin-bottom:2px}
-.ss.done .ss-time{color:#bbb}
-.ss-desc{font-size:8.5px;color:#555;line-height:1.3}
-.ss.active .ss-desc{color:#111;font-weight:700}
-.ss.done .ss-desc{color:#ccc}
+.ss.done::after{background:rgba(255,255,255,.6)}
+.ss-dot{width:13px;height:13px;border-radius:50%;background:rgba(255,255,255,.3);border:2px solid rgba(255,255,255,.4);transition:all .4s cubic-bezier(.34,1.56,.64,1);position:relative;z-index:1;flex-shrink:0}
+.ss.done .ss-dot{background:#fff;border-color:#fff}
+.ss.active .ss-dot{background:#fff;border-color:#fff;width:15px;height:15px;box-shadow:0 0 0 3px rgba(255,255,255,.25)}
+.ss-info{margin-top:4px;text-align:center;padding:0 1px}
+.ss-time{font-size:8px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:1px}
+.ss.active .ss-time{color:#fff}
+.ss.done .ss-time{color:rgba(255,255,255,.4)}
+.ss-desc{font-size:8px;color:rgba(255,255,255,.6);line-height:1.25}
+.ss.active .ss-desc{color:#fff;font-weight:700}
+.ss.done .ss-desc{color:rgba(255,255,255,.35)}
 
 @keyframes fadeDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
