@@ -79,30 +79,66 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
 
 /* ═══════════════ MOBILE <900px ═══════════════ */
 @media(max-width:899px){
-  .page{min-height:100vh;display:flex;flex-direction:column;padding:0 0 80px}
+  .page{min-height:100vh;display:flex;flex-direction:column;padding:0 0 72px}
   .topbar{display:none}
   .mobile-header{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border-bottom:1px solid rgba(200,16,46,.1);padding:10px 16px 8px;display:flex;align-items:center;justify-content:space-between;animation:fadeDown .4s ease both}
   .mh-title{font-size:13px;font-weight:800;color:#111;letter-spacing:.06em;text-transform:uppercase}
   .mh-sub{font-size:10px;color:#555;margin-top:1px}
-  .main{display:flex;flex-direction:column;align-items:center;padding:16px 16px 0;gap:16px}
+  .main{display:flex;flex-direction:column;align-items:center;padding:16px 16px 0;gap:16px;position:relative}
   .panel-left,.panel-right{display:none}
-  .sim-wrap{display:none;padding:0 16px 16px}
-  /* mobile uses inline panel inside mobile-controls, not sim-wrap */
+  .sim-wrap{display:none}
   .controls{display:none}
-  .mobile-controls{position:fixed;bottom:0;left:0;right:0;z-index:300;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-top:1px solid rgba(200,16,46,.1);display:flex;flex-direction:column}
-  .mobile-btns{display:flex;gap:5px;flex-wrap:wrap;align-items:center;justify-content:center;padding:8px 12px 10px}
 
-  /* mobile sim panel strip */
-  .mobile-sim-panel{width:100%;background:var(--red);padding:8px 14px;animation:slideUp .25s ease both}
-  @keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  /* translucent overlay — floats over the phone during simulation */
+  .mobile-sim-overlay{
+    display:none;
+    position:fixed;
+    bottom:72px;
+    left:0;right:0;
+    z-index:250;
+    padding:0 16px;
+    pointer-events:none;
+  }
+  .mobile-sim-overlay.show{display:block;animation:slideUp .3s ease both}
+  @keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .msim-card{
+    background:rgba(200,16,46,.82);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-radius:14px;
+    padding:10px 14px;
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 4px 24px rgba(200,16,46,.25);
+  }
   .msim-hdr{display:flex;align-items:center;gap:0}
-  .msim-time-wrap{min-width:68px}
+  .msim-time-wrap{min-width:64px;flex-shrink:0}
   .msim-phase-wrap{flex:1;padding:0 10px}
-  .msim-cd-wrap{min-width:40px;text-align:right}
-  .msim-lbl{font-size:7.5px;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:1px}
-  .msim-clock{font-size:15px;font-weight:800;color:#fff;line-height:1}
+  .msim-cd-wrap{min-width:36px;text-align:right;flex-shrink:0}
+  .msim-lbl{font-size:7px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:1px}
+  .msim-clock{font-size:14px;font-weight:800;color:#fff;line-height:1}
   .msim-phase{font-size:10px;font-weight:600;color:#fff;line-height:1.35}
-  .msim-cd{font-size:13px;font-weight:800;color:#ffcccc;line-height:1}
+  .msim-cd{font-size:12px;font-weight:800;color:#ffcccc;line-height:1}
+
+  /* bottom control bar — always 2 rows of 3 */
+  .mobile-controls{
+    position:fixed;bottom:0;left:0;right:0;z-index:300;
+    background:rgba(255,255,255,.97);
+    backdrop-filter:blur(12px);
+    border-top:1px solid rgba(200,16,46,.1);
+    padding:7px 10px 10px;
+  }
+  .mobile-btns{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:5px;
+  }
+  .mobile-btns .ctrl{
+    font-size:9.5px;
+    padding:7px 4px;
+    white-space:normal;
+    text-align:center;
+    line-height:1.3;
+  }
 }
 
 /* ── STEP TRACKER (shared) ── */
@@ -524,10 +560,9 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
     <div class="sim-status-txt" id="sim-status-d"></div>
   </div>
 
-  <!-- MOBILE CONTROLS -->
-  <div class="mobile-controls" id="mobile-controls">
-    <!-- Mobile sim panel lives here, above the buttons, only shown during sim -->
-    <div class="mobile-sim-panel" id="mobile-sim-panel" style="display:none">
+  <!-- MOBILE SIM OVERLAY — translucent, floats above phone UI -->
+  <div class="mobile-sim-overlay" id="mobile-sim-overlay">
+    <div class="msim-card">
       <div class="msim-hdr">
         <div class="msim-time-wrap">
           <div class="msim-lbl">Time</div>
@@ -543,14 +578,17 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
         </div>
       </div>
     </div>
-    <!-- Buttons row -->
+  </div>
+
+  <!-- MOBILE CONTROLS — always 3×2 grid -->
+  <div class="mobile-controls" id="mobile-controls">
     <div class="mobile-btns">
-      <div class="ctrl" onclick="go('sec')">🔒 Security</div>
-      <div class="ctrl" onclick="go('gate')">✈ Gate</div>
-      <div class="ctrl" onclick="go('fl')">🏛 In Flight</div>
-      <div class="ctrl red" onclick="gateChange()">⚠ Gate</div>
-      <div class="ctrl" onclick="fullReset()">↺ Reset</div>
-      <div class="ctrl sim" id="sim-btn-m" onclick="toggleAirport()">✈ Simulate</div>
+      <div class="ctrl" onclick="go('sec')">🔒<br>Security</div>
+      <div class="ctrl" onclick="go('gate')">✈<br>Gate</div>
+      <div class="ctrl" onclick="go('fl')">🏛<br>In Flight</div>
+      <div class="ctrl red" onclick="gateChange()">⚠<br>Gate change</div>
+      <div class="ctrl" onclick="fullReset()">↺<br>Reset</div>
+      <div class="ctrl sim" id="sim-btn-m" onclick="toggleAirport()">✈<br>Simulate</div>
     </div>
   </div>
 
@@ -652,10 +690,11 @@ function flyPlane(){
 function setStatus(t){var s=document.getElementById('sim-status-d');if(s)s.textContent=t;}
 function setSim(on){
   document.getElementById('sim-wrap').style.display=on?'block':'none';
-  var mp=document.getElementById('mobile-sim-panel');if(mp)mp.style.display=on?'block':'none';
+  var ov=document.getElementById('mobile-sim-overlay');
+  if(ov)ov.className='mobile-sim-overlay'+(on?' show':'');
   ['sim-btn-d','sim-btn-m'].forEach(function(id){
     var b=document.getElementById(id);if(!b)return;
-    b.innerHTML=on?'&#9632; Stop':'&#9992; Simulate';
+    b.innerHTML=on?'&#9632;<br>Stop':'&#9992;<br>Simulate';
     b.classList.toggle('running',on);
   });
 }
