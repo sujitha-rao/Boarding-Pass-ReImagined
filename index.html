@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,7 +83,7 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
 
 /* ═══════════════ MOBILE <900px ═══════════════ */
 @media(max-width:899px){
-  .page{min-height:100vh;display:flex;flex-direction:column;padding:0 0 130px}
+  .page{min-height:100vh;display:flex;flex-direction:column;padding:0 0 160px}
   .topbar{display:none}
   .mobile-header{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border-bottom:1px solid rgba(200,16,46,.1);padding:10px 16px 8px;display:flex;align-items:center;justify-content:space-between;animation:fadeDown .4s ease both}
   .mh-title{font-size:13px;font-weight:800;color:#111;letter-spacing:.06em;text-transform:uppercase}
@@ -92,18 +93,22 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
   .sim-wrap{display:none}
   .controls{display:none}
 
-  /* bottom control bar — always fixed, sim strip expands it upward */
+  /* bottom control bar — fixed, sim strip expands it upward */
   .mobile-controls{
-    position:fixed;bottom:0;left:0;right:0;z-index:300;
+    position:fixed;
+    bottom:0;
+    left:0;right:0;
+    z-index:300;
     background:#fff;
     border-top:2px solid var(--red);
     box-shadow:0 -2px 12px rgba(200,16,46,.1);
+    padding-bottom:env(safe-area-inset-bottom, 0px);
   }
 
   /* sim strip — sits above the buttons inside the bar */
   .mobile-sim-strip{
     background:var(--red);
-    padding:7px 12px;
+    padding:6px 12px;
     animation:slideUp .25s ease both;
   }
   @keyframes slideUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
@@ -116,19 +121,19 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
   .msim-phase{font-size:11px;font-weight:600;color:#fff;line-height:1.35}
   .msim-cd{font-size:12px;font-weight:800;color:#ffcccc;line-height:1.1}
 
-  /* buttons grid */
+  /* buttons grid — compact to minimise height */
   .mobile-btns{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:5px;
-    padding:7px 10px 10px;
+    gap:4px;
+    padding:5px 8px calc(6px + env(safe-area-inset-bottom, 0px));
   }
   .mobile-btns .ctrl{
-    font-size:9.5px;
-    padding:7px 4px;
+    font-size:9px;
+    padding:5px 4px;
     white-space:normal;
     text-align:center;
-    line-height:1.3;
+    line-height:1.25;
   }
 }
 
@@ -148,7 +153,7 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
 /* ── SIDE PANELS ── */
 .panel-left,.panel-right{display:flex;flex-direction:column;gap:10px;height:100%;overflow:hidden}
 
-/* ── INFO CARDS — redesigned ── */
+/* ── INFO CARDS ── */
 .info-card{position:relative;overflow:hidden;background:#fff;border-radius:14px;padding:13px 13px 11px;border-left:3px solid #e8e8e8;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .4s cubic-bezier(.34,1.2,.64,1);opacity:.38;transform:scale(.97)}
 .info-card::after{content:'';position:absolute;bottom:0;right:0;width:50px;height:50px;border-radius:50px 0 14px 0;background:rgba(200,16,46,.03);transition:background .4s}
 .info-card.active{border-left-color:var(--red);opacity:1;transform:scale(1);box-shadow:0 4px 18px rgba(200,16,46,.1)}
@@ -275,7 +280,7 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
 .ctrl.sim.running{background:linear-gradient(135deg,#444,#222)}
 .sim-status-txt{font-size:9.5px;color:#555;font-weight:500;white-space:nowrap}
 
-/* ── SIM PANEL — horizontal timeline ── */
+/* ── SIM PANEL ── */
 .sim-wrap{display:none;width:100%;animation:fadeUp .3s ease both}
 .sim-panel{
   background:var(--red);border-radius:10px;overflow:hidden;
@@ -322,35 +327,22 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
     <span style="width:44px"></span><span style="width:30px"></span><span style="width:18px"></span><span style="width:10px"></span>
   </div>
   <div class="intro-plane-wrap">
-    <!-- Delta-style airplane SVG -->
     <svg width="160" height="60" viewBox="0 0 160 60" xmlns="http://www.w3.org/2000/svg">
-      <!-- fuselage -->
       <ellipse cx="80" cy="30" rx="68" ry="10" fill="#c8102e"/>
-      <!-- nose cone -->
       <ellipse cx="146" cy="30" rx="12" ry="7" fill="#a00820"/>
-      <!-- cockpit windows -->
       <ellipse cx="138" cy="27" rx="5" ry="3.5" fill="#fff" opacity=".7"/>
       <ellipse cx="130" cy="27" rx="4" ry="3" fill="#fff" opacity=".5"/>
-      <!-- main wing -->
       <polygon points="85,30 55,30 30,52 65,38" fill="#a00820"/>
       <polygon points="85,30 55,30 30,8 65,22" fill="#c8102e"/>
-      <!-- wing stripe -->
       <polygon points="85,30 60,30 40,48 68,37" fill="#e8102e" opacity=".4"/>
-      <!-- tail fin vertical -->
       <polygon points="16,30 28,30 22,12" fill="#a00820"/>
-      <!-- tail fin horizontal left -->
       <polygon points="16,30 28,32 14,44" fill="#c8102e"/>
-      <!-- tail fin horizontal right -->
       <polygon points="16,28 28,28 14,16" fill="#c8102e"/>
-      <!-- engine pod 1 -->
       <ellipse cx="68" cy="42" rx="12" ry="5" fill="#7a0020"/>
       <ellipse cx="56" cy="42" rx="6" ry="5" fill="#5a0018"/>
-      <!-- engine pod 2 -->
       <ellipse cx="72" cy="18" rx="11" ry="4.5" fill="#7a0020"/>
       <ellipse cx="61" cy="18" rx="5.5" ry="4.5" fill="#5a0018"/>
-      <!-- fuselage stripe -->
       <rect x="20" y="27" width="110" height="2" rx="1" fill="#fff" opacity=".25"/>
-      <!-- DELTA lettering on fuselage -->
       <text x="60" y="34" font-family="Arial,sans-serif" font-size="9" font-weight="800" fill="#fff" letter-spacing="2" opacity=".9">DELTA</text>
     </svg>
   </div>
@@ -381,7 +373,6 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
 
 <div class="page">
 
-  <!-- DESKTOP TOP BAR -->
   <div class="topbar">
     <div class="tb-left"><h1>Three-Card Boarding Pass</h1><p>Delta Air Lines · DL 142 · JFK → LAX</p></div>
     <div class="step-track">
@@ -393,7 +384,6 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
     </div>
   </div>
 
-  <!-- MOBILE HEADER -->
   <div class="mobile-header">
     <div><div class="mh-title">Boarding Pass</div><div class="mh-sub">DL 142 · JFK → LAX</div></div>
     <div class="step-track">
@@ -405,10 +395,8 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
     </div>
   </div>
 
-  <!-- MAIN -->
   <div class="main">
 
-    <!-- LEFT -->
     <div class="panel-left">
       <div class="info-card active" id="ic-sec-1">
         <div class="ic-row"><div class="ic-num">01</div><div class="ic-label">Security</div></div>
@@ -433,7 +421,6 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
       </div>
     </div>
 
-    <!-- PHONE -->
     <div class="phone-col">
       <div class="phone" id="phone">
         <div class="inner">
@@ -493,7 +480,6 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
       </div>
     </div>
 
-    <!-- RIGHT -->
     <div class="panel-right" id="panel-right">
       <div class="info-card active" id="ic-sec-2">
         <div class="ic-row"><div class="ic-num">↗</div><div class="ic-label">What you need</div></div>
@@ -520,7 +506,6 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
 
   </div>
 
-  <!-- SIM PANEL below main -->
   <div class="sim-wrap" id="sim-wrap">
     <div class="sim-panel">
       <div class="sim-hdr">
@@ -541,7 +526,6 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
     </div>
   </div>
 
-  <!-- DESKTOP CONTROLS -->
   <div class="controls">
     <div class="ctrl-lbl">Stage</div>
     <div class="ctrl-grp">
@@ -559,9 +543,7 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
     <div class="sim-status-txt" id="sim-status-d"></div>
   </div>
 
-  <!-- MOBILE CONTROLS — sim strip + 3×2 button grid, all fixed to bottom -->
   <div class="mobile-controls" id="mobile-controls">
-    <!-- Sim info strip: hidden until simulation runs -->
     <div class="mobile-sim-strip" id="mobile-sim-strip" style="display:none">
       <div class="msim-hdr">
         <div class="msim-time-wrap">
@@ -578,7 +560,6 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
         </div>
       </div>
     </div>
-    <!-- Buttons -->
     <div class="mobile-btns">
       <div class="ctrl" onclick="go('sec')">🔒<br>Security</div>
       <div class="ctrl" onclick="go('gate')">✈<br>Gate</div>
