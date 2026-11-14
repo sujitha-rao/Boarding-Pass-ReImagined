@@ -3,7 +3,6 @@
 
 > **Georgia Tech OMSCS — CS 6750 Human-Computer Interaction**
 > Sujitha Suresh Rao · srao434@gatech.edu
-
 ---
 
 ## 🚀 Live Prototype
