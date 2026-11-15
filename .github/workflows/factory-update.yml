@@ -1,0 +1,43 @@
+name: Send issue update to factory
+
+# Lives in each app repo. scripts/install-trigger.mjs fills in the placeholders
+# and opens a pull request that adds this file.
+#
+# When an issue the factory already worked on is edited, or gets a new comment,
+# the factory runs it again with the new text.
+on:
+  issues:
+    types: [edited]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    # - open issues only, never pull requests (their comments arrive here too)
+    # - only people on the list, so a stranger cannot spend your agent subscription
+    # - not the factory's own comments, which carry a hidden marker
+    # - only issues that carry a factory label, i.e. that the factory has touched
+    if: >-
+      github.event.issue.state == 'open' &&
+      !github.event.issue.pull_request &&
+      contains(fromJSON('["sujitha-rao"]'), github.actor) &&
+      (github.event_name == 'issues' || !contains(github.event.comment.body, '<!-- software-factory -->')) &&
+      (
+        contains(github.event.issue.labels.*.name, 'factory:review') ||
+        contains(github.event.issue.labels.*.name, 'factory:needs-attention') ||
+        contains(github.event.issue.labels.*.name, 'factory:running')
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start the factory
+        env:
+          GH_TOKEN: ${{ secrets.FACTORY_GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh api --method POST repos/sujitha-rao/software-factory/dispatches \
+            -f event_type=issue-updated \
+            -f "client_payload[repo]=$GITHUB_REPOSITORY" \
+            -F "client_payload[issue]=$ISSUE_NUMBER"
