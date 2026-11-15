@@ -64,6 +64,7 @@
 html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#f5e6e8 0%,#e8eef5 50%,#f0e8f5 100%);min-height:100vh}
 
 .page-footer{position:fixed;left:0;right:0;bottom:0;text-align:center;font-size:10px;color:#888;padding:2px 0;pointer-events:none}
+.page-footer-hint{font-size:10px;color:#888}
 
 /* ═══════════════ DESKTOP ≥900px ═══════════════ */
 @media(min-width:900px){
@@ -573,7 +574,9 @@ html,body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;bac
 
 </div>
 
-<div class="page-footer">Prototype for CS 6750</div>
+<div class="page-footer">Prototype for CS 6750
+  <div class="page-footer-hint">Tap a tab to switch stage</div>
+</div>
 
 <script>
 var barVisible=true,mins=22,timer=null,currentCard='sec';
